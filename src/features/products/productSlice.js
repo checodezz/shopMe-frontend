@@ -6,6 +6,8 @@ export const fetchProducts = createAsyncThunk("products/fetchProducts", async ()
     return response.data.products;
 })
 
+
+
 export const productSlice = createSlice({
 
     name: "products",
@@ -45,19 +47,20 @@ export const productSlice = createSlice({
         }
     },
 
-    extraReducers: (builder) => [
+    extraReducers: (builder) => {
         builder.addCase(fetchProducts.pending, (state) => {
             state.status = "loading"
         }),
-        builder.addCase(fetchProducts.fulfilled, (state, action) => {
-            state.status = "success",
-                state.products = action.payload
-        }),
-        builder.addCase(fetchProducts.rejected, (state, action) => {
-            state.status = "error",
-                state.error = action.error.message
-        })
-    ]
+            builder.addCase(fetchProducts.fulfilled, (state, action) => {
+                state.status = "success",
+                    state.products = action.payload
+            }),
+            builder.addCase(fetchProducts.rejected, (state, action) => {
+                state.status = "error",
+                    state.error = action.error.message
+            })
+
+    }
 
 })
 
