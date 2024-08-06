@@ -2,14 +2,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FaHeart } from "react-icons/fa";
 import { CiShoppingCart } from "react-icons/ci";
 import { FaSearch } from "react-icons/fa";
-import "./Header.css";
+import "../css/Header.css";
 
 const Header = () => {
   const cartItemCount = 1;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary ">
-      <div className="container">
+      <div className="container-fluid px-5">
         <a
           className="navbar-brand font-monospace text-decoration-underline fw-bold font-monospace fs-4"
           href="#"

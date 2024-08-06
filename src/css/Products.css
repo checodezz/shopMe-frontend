@@ -1,0 +1,174 @@
+/* Global Container */
+.container {
+    padding: 20px;
+}
+
+/* Card Styles */
+.card {
+    border: 1px solid #ddd;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 0;
+    /* Making the cards edgy */
+    overflow: hidden;
+    margin-bottom: 20px;
+    /* Space between product cards */
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    height: 300px;
+    /* Increased image height */
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0%;
+}
+
+.card-body {
+    text-align: left;
+    /* Align text to the left */
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 1.9rem;
+    /* Increased font size for the product name */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.card-category {
+    font-size: 1.2rem;
+    color: #757575;
+    margin-bottom: 0.5rem;
+}
+
+.card-rating {
+    font-size: 1.1rem;
+    color: green;
+    /* Adjusted color for better aesthetics */
+    margin-bottom: 0.5rem;
+}
+
+.card-price {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #d32f2f;
+    margin-bottom: 0.5rem;
+}
+
+.text-decoration-line-through {
+    font-size: 0.9rem;
+    color: #757575;
+    margin-left: 0.5rem;
+}
+
+.card-discount {
+    font-size: 0.9rem;
+    color: #388e3c;
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+    background-color: #ff3f6c;
+    border-color: #ff3f6c;
+    width: 100%;
+    /* Making the button full width */
+    border-radius: 0;
+    /* Making the button edgy */
+}
+
+.btn-primary:hover {
+    background-color: #e02855;
+    border-color: #e02855;
+}
+
+.btn-block {
+    border-top: 1px solid #ddd;
+    /* Add a border to separate the button from the card body */
+    margin: 0;
+    /* Remove margin to make the button edge-to-edge */
+    /* margin-top: 10px; */
+    /* Reduced space between price and button */
+}
+
+.btn-sm {
+    font-size: 0.875rem;
+    padding: 10px 0;
+    /* Add vertical padding for a better look */
+}
+
+/* Filters Section */
+.filters {
+    position: -webkit-sticky;
+    /* For Safari */
+    position: sticky;
+    top: 20px;
+    /* Adjust based on your header height */
+    padding: 15px;
+    background: #f8f9fa;
+    /* Light background for the filter section */
+    border-right: 1px solid #dee2e6;
+    /* Subtle border */
+    border-radius: 0.5rem;
+    /* Rounded corners for a softer look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Softer shadow for depth */
+    height: calc(100vh - 60px);
+    /* Adjust based on header height */
+    overflow-y: auto;
+    /* Scrollable if content overflows */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in width/height */
+}
+
+.filters h3 {
+    margin-bottom: 1rem;
+    /* Space below the heading */
+    font-size: 1.25rem;
+    /* Increase font size for better readability */
+    font-weight: bold;
+    /* Bold font for headings */
+    color: #333;
+    /* Dark color for headings */
+}
+
+.filters .form-check {
+    margin-bottom: 1rem;
+    /* Space between filter options */
+}
+
+.filters .form-check input[type="radio"],
+.filters .form-check input[type="checkbox"] {
+    margin-right: 0.75rem;
+    /* Space between checkbox/radio and label */
+}
+
+.filters .form-check-label {
+    margin-left: 0.25rem;
+    /* Space between radio/checkbox and label */
+    font-size: 1rem;
+    /* Slightly larger font size for better readability */
+    color: #333;
+    /* Dark color for labels */
+}
+
+.filters .form-check input[type="radio"] {
+    margin-left: 0;
+    /* Remove default margin on the left for radio buttons */
+}
+
+.filters .form-check input[type="checkbox"] {
+    margin-left: 0;
+    /* Remove default margin on the left for checkboxes */
+}
+
+/* Adjust margins of the container to remove excessive white space */
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
