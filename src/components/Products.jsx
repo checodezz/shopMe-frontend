@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import {
   fetchProducts,
@@ -54,13 +55,14 @@ const Products = () => {
 
   return (
     <div className="products-page">
-      <div className="row">
-        <div className="col-md-3 filters my-3 px-5">
+      <div className="row ps-4 bg-body-tertiary">
+        <div className="col-md-3 filters my-3 px-5 bg-body-secondary">
           <div className="d-flex justify-content-between mb-3">
             <h3>Filters</h3>
             <span
               style={{ cursor: "pointer" }}
               onClick={() => dispatch(clearFilters())}
+              className="fw-bold fs-6 "
             >
               Clear
             </span>
@@ -131,7 +133,7 @@ const Products = () => {
                 className="form-check-input"
               />
               <label htmlFor="rating-4" className="form-check-label">
-                4 star and above
+                <strong>4</strong> Star & Above
               </label>
             </div>
             <div className="form-check">
@@ -145,7 +147,7 @@ const Products = () => {
                 className="form-check-input"
               />
               <label htmlFor="rating-3" className="form-check-label">
-                3 star and above
+                <strong>3</strong> Star & Above
               </label>
             </div>
             <div className="form-check">
@@ -159,7 +161,7 @@ const Products = () => {
                 className="form-check-input"
               />
               <label htmlFor="rating-2" className="form-check-label">
-                2 star and above
+                <strong>2</strong> Star & Above
               </label>
             </div>
             <div className="form-check">
@@ -173,7 +175,7 @@ const Products = () => {
                 className="form-check-input"
               />
               <label htmlFor="rating-1" className="form-check-label">
-                1 star and above
+                <strong>1</strong> Star & Above
               </label>
             </div>
 
@@ -209,13 +211,13 @@ const Products = () => {
           </div>
         </div>
         <div className="col-md-9">
-          <h1 className="text-center mb-4">All Products</h1>
+          <h1 className="text-center p-3 ">All Products </h1>
           <div className="row">
             {sortedProducts.map((product) => {
               const discountedPrice = product.price - product.discount;
               return (
                 <div key={product._id} className="col-md-3 mb-4">
-                  <div className="card h-100">
+                  <div className="card h-100 ">
                     <img
                       src={
                         product.productImage ||
@@ -239,9 +241,12 @@ const Products = () => {
                         </span>
                       </p>
                     </div>
-                    <a href="#" className="btn btn-primary btn-block">
+                    <Link
+                      to={`/productDetails/${product._id}`}
+                      className="btn btn-primary btn-block"
+                    >
                       View Product
-                    </a>
+                    </Link>
                   </div>
                 </div>
               );
