@@ -109,14 +109,14 @@
     position: sticky;
     top: 20px;
     /* Adjust based on your header height */
-    padding: 15px;
-    background: #f8f9fa;
+    padding: 20px;
+    background: #ffffff;
     /* Light background for the filter section */
     border-right: 1px solid #dee2e6;
     /* Subtle border */
-    border-radius: 0.5rem;
+    border-radius: 10px;
     /* Rounded corners for a softer look */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     /* Softer shadow for depth */
     height: calc(100vh - 60px);
     /* Adjust based on header height */
@@ -127,48 +127,54 @@
 }
 
 .filters h3 {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     /* Space below the heading */
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     /* Increase font size for better readability */
     font-weight: bold;
     /* Bold font for headings */
     color: #333;
     /* Dark color for headings */
+    border-bottom: 2px solid #ff3f6c;
+    padding-bottom: 10px;
 }
 
 .filters .form-check {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     /* Space between filter options */
+    padding-left: 1.5rem;
 }
 
 .filters .form-check input[type="radio"],
 .filters .form-check input[type="checkbox"] {
-    margin-right: 0.75rem;
+    margin-right: 1rem;
     /* Space between checkbox/radio and label */
 }
 
 .filters .form-check-label {
-    margin-left: 0.25rem;
-    /* Space between radio/checkbox and label */
-    font-size: 1rem;
+    font-size: 1.2rem;
     /* Slightly larger font size for better readability */
-    color: #333;
+    color: #555;
     /* Dark color for labels */
 }
 
-.filters .form-check input[type="radio"] {
-    margin-left: 0;
-    /* Remove default margin on the left for radio buttons */
+.filters .btn-clear {
+    background-color: #ff3f6c;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 20px;
+    display: inline-block;
 }
 
-.filters .form-check input[type="checkbox"] {
-    margin-left: 0;
-    /* Remove default margin on the left for checkboxes */
+.filters .btn-clear:hover {
+    background-color: #e02855;
 }
 
-/* Adjust margins of the container to remove excessive white space */
-.row {
-    margin-left: 0;
-    margin-right: 0;
+.filters hr {
+    border-top: 1px solid #dee2e6;
+    margin: 1.5rem 0;
 }
