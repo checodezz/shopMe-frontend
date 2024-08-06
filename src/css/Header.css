@@ -55,5 +55,16 @@
 }
 
 .navbar {
+    position: -webkit-sticky;
+    /* For Safari */
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    /* Ensure the header is above other content */
+    background-color: #fff;
+    /* Ensure the header has a background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Add a subtle shadow for depth */
     padding: 10px 0;
+    /* Adjust padding as needed */
 }

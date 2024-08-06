@@ -11,7 +11,7 @@ const Homepage = () => {
         />
       </div>
       <div className="text-center">
-        <Link to="/products" className="btn btn-primary ">
+        <Link to="/products/all" className="btn btn-primary ">
           Browse Products
         </Link>
       </div>
