@@ -10,13 +10,17 @@
     border-radius: 0;
     /* Making the cards edgy */
     overflow: hidden;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     /* Space between product cards */
 }
 
+.col-md-3 {
+    padding: 6px
+}
+
 .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .card-img-top {
@@ -55,7 +59,7 @@
 }
 
 .card-price {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: #d32f2f;
     margin-bottom: 0.5rem;
@@ -68,7 +72,7 @@
 }
 
 .card-discount {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     color: #388e3c;
     margin-bottom: 1rem;
 }

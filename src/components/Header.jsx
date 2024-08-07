@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaHeart } from "react-icons/fa";
 import { CiShoppingCart } from "react-icons/ci";
@@ -10,12 +11,13 @@ const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary ">
       <div className="container-fluid px-5">
-        <a
+        <Link
+          to="/"
           className="navbar-brand font-monospace text-decoration-underline fw-bold font-monospace fs-4"
           href="#"
         >
           Drip&Flex
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
