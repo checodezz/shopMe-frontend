@@ -56,7 +56,7 @@ const Products = () => {
   return (
     <div className="products-page">
       <div className="row ps-4 bg-body-tertiary">
-        <div className="col-md-3 filters my-3 px-5 bg-body-secondary">
+        <div className="col-md-3 filters mt-5 px-5 ">
           <div className="d-flex justify-content-between mb-3">
             <h3>Filters</h3>
             <span
@@ -211,43 +211,48 @@ const Products = () => {
           </div>
         </div>
         <div className="col-md-9">
-          <h1 className="text-center p-3 ">All Products </h1>
+          <h3 className="text-center pt-3 ">All Products </h3>
           <div className="row">
             {sortedProducts.map((product) => {
               const discountedPrice = product.price - product.discount;
               return (
                 <div key={product._id} className="col-md-3 mb-4">
-                  <div className="card h-100 ">
-                    <img
-                      src={
-                        product.productImage ||
-                        "https://via.placeholder.com/150"
-                      }
-                      className="card-img-top"
-                      alt={product.name}
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{product.name}</h5>
-                      <p className="card-category text-secondary">
-                        {product.category}
-                      </p>
-                      <p className="card-rating fw-semibold">
-                        Rating: {product.rating} ⭐️
-                      </p>
-                      <p className="card-price">
-                        ₹{discountedPrice.toFixed(2)}{" "}
-                        <span className="text-muted text-decoration-line-through">
-                          ₹{product.price.toFixed(2)}
-                        </span>
-                      </p>
+                  <Link
+                    to={`/productDetails/${product._id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <div className="card h-100 ">
+                      <img
+                        src={
+                          product.productImage ||
+                          "https://via.placeholder.com/150"
+                        }
+                        className="card-img-top"
+                        alt={product.name}
+                      />
+                      <div className="card-body">
+                        <h5 className="card-title">{product.name}</h5>
+                        <p className="card-category text-secondary">
+                          {product.category}
+                        </p>
+                        <p className="card-rating fw-semibold">
+                          Rating: {product.rating} ⭐️
+                        </p>
+                        <p className="card-price">
+                          ₹{discountedPrice.toFixed(2)}{" "}
+                          <span className="text-muted text-decoration-line-through">
+                            ₹{product.price.toFixed(2)}
+                          </span>
+                        </p>
+                      </div>
+                      <Link
+                        to={`/productDetails/${product._id}`}
+                        className="btn btn-primary btn-block"
+                      >
+                        View Product
+                      </Link>
                     </div>
-                    <Link
-                      to={`/productDetails/${product._id}`}
-                      className="btn btn-primary btn-block"
-                    >
-                      View Product
-                    </Link>
-                  </div>
+                  </Link>
                 </div>
               );
             })}
