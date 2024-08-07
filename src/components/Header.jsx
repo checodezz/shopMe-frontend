@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaHeart } from "react-icons/fa";
 import { CiShoppingCart } from "react-icons/ci";
@@ -6,15 +7,19 @@ import { FaSearch } from "react-icons/fa";
 import "../css/Header.css";
 
 const Header = () => {
-  const cartItemCount = 1;
+  const wishlistProductCount = useSelector(
+    (state) => state.wishlist.products
+  ).length;
 
+  const cartCount = useSelector((state) => state?.cart?.products).length;
+
+  // const cartItemCount = 0;
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary ">
+    <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
       <div className="container-fluid px-5">
         <Link
           to="/"
           className="navbar-brand font-monospace text-decoration-underline fw-bold font-monospace fs-4"
-          href="#"
         >
           Drip&Flex
         </Link>
@@ -42,14 +47,31 @@ const Header = () => {
             </div>
           </form>
           <div className="icons">
-            <FaHeart
-              style={{ fontSize: "1.5rem", marginRight: "20px", color: "red" }}
-            />
+            <div className="wishlist-icon-container">
+              <Link to="/wishlist" style={{ textDecoration: "none" }}>
+                <FaHeart
+                  className="ms-auto"
+                  style={{
+                    fontSize: "1.5rem",
+                    color: "red",
+                  }}
+                />
+
+                <span className="wishlist-item-count">
+                  {wishlistProductCount}
+                </span>
+              </Link>
+            </div>
             <div className="cart-icon-container">
-              <CiShoppingCart style={{ fontSize: "1.5rem", color: "black" }} />
-              {cartItemCount > 0 && (
-                <span className="cart-item-count">{cartItemCount}</span>
-              )}
+              <Link to="/cart" style={{ textDecoration: "none" }}>
+                <CiShoppingCart
+                  style={{
+                    fontSize: "1.5rem",
+                    color: "black",
+                  }}
+                />
+                <span className="cart-item-count">{cartCount}</span>
+              </Link>
             </div>
           </div>
         </div>
