@@ -1,10 +1,12 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchProductById } from "../features/products/productDetailsSlice";
 import { FaHeart } from "react-icons/fa";
-
+import { addToWishlist } from "../features/wishlist/wishlistSlice";
+import { addToCart } from "../features/cart/cartSlice";
 const ProductDetails = () => {
+  const [addedToCart, setAddedToCart] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
   const {
@@ -13,7 +15,11 @@ const ProductDetails = () => {
     error = null,
   } = useSelector((state) => state.productDetails.product || {});
 
-  console.log(product);
+  const handleAddToCart = () => {
+    dispatch(addToCart(id));
+    setAddedToCart(true); // Update state when item is added to cart
+  };
+
   useEffect(() => {
     dispatch(fetchProductById(id));
   }, [dispatch, id]);
@@ -81,11 +87,16 @@ Whether you're dressing up for a night out or keeping it chic for a day at the o
                 </small>
               </p>
               <div className="d-flex justify-content-end mt-3">
-                <button className="btn btn-primary me-2">
+                <button
+                  className="btn btn-primary me-2"
+                  onClick={() => dispatch(addToWishlist(product))}
+                >
                   <FaHeart className="me-1" />
                   Wishlist
                 </button>
-                <button className="btn btn-primary">Add to Cart</button>
+                <button className="btn btn-primary" onClick={handleAddToCart}>
+                  {addedToCart ? "Product Added to Cart" : "Add to Cart"}
+                </button>
               </div>
             </div>
           </div>
