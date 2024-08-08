@@ -15,8 +15,6 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          {/* <Route to="/" element={<Homepage />} />
-           */}
           <Route path="/" element={<Homepage />} />
           <Route path="/products/all" element={<Products />} />
           <Route path="/productDetails/:id" element={<ProductDetails />} />

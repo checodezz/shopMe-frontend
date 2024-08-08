@@ -1,19 +1,25 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaHeart } from "react-icons/fa";
 import { CiShoppingCart } from "react-icons/ci";
 import { FaSearch } from "react-icons/fa";
 import "../css/Header.css";
+import { useEffect } from "react";
+import { fetchCart } from "../features/cart/cartSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const wishlistProductCount = useSelector(
     (state) => state.wishlist.products
   ).length;
 
   const cartCount = useSelector((state) => state?.cart?.products).length;
 
-  // const cartItemCount = 0;
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, []);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
       <div className="container-fluid px-5">
@@ -21,7 +27,7 @@ const Header = () => {
           to="/"
           className="navbar-brand font-monospace text-decoration-underline fw-bold font-monospace fs-4"
         >
-          Drip&Flex
+          ShopMe
         </Link>
         <button
           className="navbar-toggler"
