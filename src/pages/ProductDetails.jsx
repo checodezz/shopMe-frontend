@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchProductById } from "../features/products/productDetailsSlice";
 import { FaHeart } from "react-icons/fa";
 import { addToWishlist } from "../features/wishlist/wishlistSlice";
-import { addToCart } from "../features/cart/cartSlice";
+import { addToCart, fetchCart } from "../features/cart/cartSlice";
 const ProductDetails = () => {
   const [addedToCart, setAddedToCart] = useState(false);
   const { id } = useParams();
@@ -15,13 +15,18 @@ const ProductDetails = () => {
     error = null,
   } = useSelector((state) => state.productDetails.product || {});
 
+  const cartItems = useSelector((state) => state.cart.products);
+  const quantity =
+    cartItems.find((item) => item.productId._id === id)?.quantity || 0;
+
   const handleAddToCart = () => {
     dispatch(addToCart(id));
-    setAddedToCart(true); // Update state when item is added to cart
+    setAddedToCart(true);
   };
 
   useEffect(() => {
     dispatch(fetchProductById(id));
+    dispatch(fetchCart());
   }, [dispatch, id]);
 
   if (status === "loading") {
@@ -95,7 +100,7 @@ Whether you're dressing up for a night out or keeping it chic for a day at the o
                   Wishlist
                 </button>
                 <button className="btn btn-primary" onClick={handleAddToCart}>
-                  {addedToCart ? "Product Added to Cart" : "Add to Cart"}
+                  {addedToCart ? `Added to Cart : ${quantity}` : "Add to Cart"}
                 </button>
               </div>
             </div>
