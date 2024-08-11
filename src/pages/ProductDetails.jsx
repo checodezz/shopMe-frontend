@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { fetchProductById } from "../features/products/productDetailsSlice";
 import { FaHeart } from "react-icons/fa";
 import { addToWishlist } from "../features/wishlist/wishlistSlice";
-import { addToCart, fetchCart } from "../features/cart/cartSlice";
+import { updatedCart, fetchCart } from "../features/cart/cartSlice";
 const ProductDetails = () => {
-  const [addedToCart, setAddedToCart] = useState(false);
+  // const [addedToCart, setAddedToCart] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
   const {
@@ -16,13 +16,9 @@ const ProductDetails = () => {
   } = useSelector((state) => state.productDetails.product || {});
 
   const cartItems = useSelector((state) => state.cart.products);
-  const quantity =
-    cartItems.find((item) => item.productId._id === id)?.quantity || 0;
-
-  const handleAddToCart = () => {
-    dispatch(addToCart(id));
-    setAddedToCart(true);
-  };
+  console.log(cartItems);
+  // const quantity =
+  //   cartItems.find((item) => item.productId._id === id)?.quantity || 0;
 
   useEffect(() => {
     dispatch(fetchProductById(id));
@@ -99,8 +95,18 @@ Whether you're dressing up for a night out or keeping it chic for a day at the o
                   <FaHeart className="me-1" />
                   Wishlist
                 </button>
-                <button className="btn btn-primary" onClick={handleAddToCart}>
-                  {addedToCart ? `Added to Cart : ${quantity}` : "Add to Cart"}
+                <button
+                  className="btn btn-primary"
+                  onClick={() =>
+                    dispatch(
+                      updatedCart({
+                        id,
+                        operation: "increment",
+                      })
+                    )
+                  }
+                >
+                  Add to Cart
                 </button>
               </div>
             </div>
