@@ -1,5 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCart, updatedCart } from "../features/cart/cartSlice";
+import {
+  fetchCart,
+  updatedCart,
+  updateQuantity,
+  deleteProduct,
+  deleteProductFromCart,
+} from "../features/cart/cartSlice";
 import { useEffect } from "react";
 import { CiSquarePlus, CiSquareMinus } from "react-icons/ci";
 import { AiFillDelete } from "react-icons/ai";
@@ -7,15 +13,20 @@ import { AiFillDelete } from "react-icons/ai";
 const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.products);
-
+  console.log(cartItems);
   useEffect(() => {
-    dispatch(fetchCart()); // Fetch cart data on component mount
+    dispatch(fetchCart());
   }, [dispatch]);
 
   const handleQuantityChange = (productId, operation) => {
+    dispatch(updateQuantity({ productId: productId._id, operation }));
     dispatch(updatedCart({ id: productId._id, operation }));
   };
 
+  const handleDeleteProduct = (productId) => {
+    dispatch(deleteProduct(productId));
+    dispatch(deleteProductFromCart(productId));
+  };
   return (
     <div className="container mt-3" style={{ fontSize: "0.9rem" }}>
       <h2 className="text-center mb-4">Your Cart</h2>
@@ -89,9 +100,7 @@ const Cart = () => {
                     <div className="d-flex align-items-right pt-5 mt-5 px-3">
                       <button
                         className="btn btn-outline-danger btn-sm ms-3 px-3"
-                        onClick={() =>
-                          handleQuantityChange(productId, "remove")
-                        }
+                        onClick={() => handleDeleteProduct(item._id)}
                       >
                         <AiFillDelete /> Remove from Cart
                       </button>
