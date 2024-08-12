@@ -15,11 +15,7 @@ const ProductDetails = () => {
     error = null,
   } = useSelector((state) => state.productDetails.product || {});
 
-  const cartItems = useSelector((state) => state.cart.products);
-  console.log(cartItems);
-  // const quantity =
-  //   cartItems.find((item) => item.productId._id === id)?.quantity || 0;
-
+  
   useEffect(() => {
     dispatch(fetchProductById(id));
     dispatch(fetchCart());

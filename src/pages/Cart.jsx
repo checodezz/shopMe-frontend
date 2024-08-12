@@ -1,16 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCart } from "../features/cart/cartSlice";
+import { fetchCart, updatedCart } from "../features/cart/cartSlice";
 import { useEffect } from "react";
-import { CiSquarePlus } from "react-icons/ci";
-import { CiSquareMinus } from "react-icons/ci";
+import { CiSquarePlus, CiSquareMinus } from "react-icons/ci";
 import { AiFillDelete } from "react-icons/ai";
+
 const Cart = () => {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state?.cart?.products);
+  const cartItems = useSelector((state) => state.cart.products);
 
   useEffect(() => {
-    dispatch(fetchCart());
+    dispatch(fetchCart()); // Fetch cart data on component mount
   }, [dispatch]);
+
+  const handleQuantityChange = (productId, operation) => {
+    dispatch(updatedCart({ id: productId._id, operation }));
+  };
 
   return (
     <div className="container mt-3" style={{ fontSize: "0.9rem" }}>
@@ -22,7 +26,7 @@ const Cart = () => {
             const discountedPrice = productId.price - productId.discount;
 
             return (
-              <div key={item._id} className="card mb-0 ">
+              <div key={item._id} className="card mb-0">
                 <div className="row d-flex align-items-center g-0">
                   {/* Image Section */}
                   <div
@@ -63,17 +67,32 @@ const Cart = () => {
                       </div>
                       <div className="d-flex align-items-center pt-2">
                         <p className="mb-1 me-2">Quantity:</p>
-                        <CiSquareMinus style={{ fontSize: "1.9rem" }} />
+                        <CiSquareMinus
+                          style={{ fontSize: "1.9rem", cursor: "pointer" }}
+                          onClick={() =>
+                            handleQuantityChange(productId, "decrement")
+                          }
+                        />
                         <span className="mx-2">{quantity}</span>
-                        <CiSquarePlus style={{ fontSize: "1.9rem" }} />
+                        <CiSquarePlus
+                          style={{ fontSize: "1.9rem", cursor: "pointer" }}
+                          onClick={() =>
+                            handleQuantityChange(productId, "increment")
+                          }
+                        />
                       </div>
                     </div>
                   </div>
 
                   {/* Action Buttons Section */}
                   <div className="col-md-4 d-flex justify-content-end">
-                    <div className="d-flex align-items-right pt-5 mt-5 px-3 ">
-                      <button className="btn btn-outline-danger btn-sm ms-3 px-3">
+                    <div className="d-flex align-items-right pt-5 mt-5 px-3">
+                      <button
+                        className="btn btn-outline-danger btn-sm ms-3 px-3"
+                        onClick={() =>
+                          handleQuantityChange(productId, "remove")
+                        }
+                      >
                         <AiFillDelete /> Remove from Cart
                       </button>
                     </div>
