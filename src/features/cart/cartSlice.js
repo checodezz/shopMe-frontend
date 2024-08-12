@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Async thunk for updating the cart
 export const updatedCart = createAsyncThunk(
     "cart/updateCart",
     async ({ id, operation }) => {
@@ -13,17 +12,15 @@ export const updatedCart = createAsyncThunk(
     }
 );
 
-// Async thunk for fetching the cart
 export const fetchCart = createAsyncThunk("cart/fetchCart", async () => {
     const response = await axios.get("http://localhost:3000/cart");
     return response.data.cart;
 });
 
-// Async thunk for deleting a product from the cart
 export const deleteProductFromCart = createAsyncThunk(
     "cart/deleteProduct",
     async (productId) => {
-        const response = await axios.delete(`http://localhost:3000/cart/delete/${productId}`);
+        await axios.delete(`http://localhost:3000/cart/delete/${productId}`);
         return productId;
     }
 );
@@ -47,7 +44,6 @@ export const cartSlice = createSlice({
                 } else if (operation === "decrement") {
                     existingProduct.quantity -= 1;
                     if (existingProduct.quantity <= 0) {
-                        // If quantity is zero or less, remove the product from the state
                         state.products = state.products.filter(
                             (product) => product.productId._id !== productId
                         );
@@ -97,12 +93,8 @@ export const cartSlice = createSlice({
             .addCase(deleteProductFromCart.pending, (state) => {
                 state.status = "pending";
             })
-            .addCase(deleteProductFromCart.fulfilled, (state, action) => {
+            .addCase(deleteProductFromCart.fulfilled, (state) => {
                 state.status = "success";
-                /*  const productId = action.payload;
-                 state.products = state.products.filter(
-                     (product) => product.productId._id !== productId
-                 ); */
             })
             .addCase(deleteProductFromCart.rejected, (state, action) => {
                 state.status = "error";
