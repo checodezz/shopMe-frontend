@@ -10,16 +10,18 @@ import { fetchCart } from "../features/cart/cartSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const wishlistProductCount = useSelector(
-    (state) => state.wishlist.products
-  ).length;
+  // const wishlistProductCount = useSelector(
+  //   (state) => state.wishlist.products
+  // ).length;
 
   const cartCount = useSelector((state) => state?.cart?.products).length;
+  const cartStatus = useSelector((state) => state.cart.status);
 
   useEffect(() => {
-    dispatch(fetchCart());
-  }, []);
-
+    if (cartStatus === "idle") {
+      dispatch(fetchCart());
+    }
+  }, [dispatch, cartStatus]);
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
       <div className="container-fluid px-5">
@@ -64,7 +66,7 @@ const Header = () => {
                 />
 
                 <span className="wishlist-item-count">
-                  {wishlistProductCount}
+                  {/* {wishlistProductCount} */}
                 </span>
               </Link>
             </div>

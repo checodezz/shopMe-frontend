@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 import axios from "axios";
 
 export const toggleWishlist = createAsyncThunk('wishlist/toggleWishlist', async (productId) => {
