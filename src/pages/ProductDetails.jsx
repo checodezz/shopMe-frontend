@@ -3,8 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchProductById } from "../features/products/productDetailsSlice";
 import { FaHeart } from "react-icons/fa";
-import { addToWishlist } from "../features/wishlist/wishlistSlice";
 import { updatedCart, fetchCart } from "../features/cart/cartSlice";
+import {
+  toggleWishlist,
+  // addToWishlist,
+} from "../features/wishlist/wishlistSlice";
 const ProductDetails = () => {
   // const [addedToCart, setAddedToCart] = useState(false);
   const { id } = useParams();
@@ -15,11 +18,16 @@ const ProductDetails = () => {
     error = null,
   } = useSelector((state) => state.productDetails.product || {});
 
-  
   useEffect(() => {
     dispatch(fetchProductById(id));
     dispatch(fetchCart());
   }, [dispatch, id]);
+
+  const handleAddtoWishlist = (productId) => {
+    console.log(productId);
+    dispatch(toggleWishlist(productId));
+    // dispatch(addToWishlist(productId));
+  };
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -86,7 +94,7 @@ Whether you're dressing up for a night out or keeping it chic for a day at the o
               <div className="d-flex justify-content-end mt-3">
                 <button
                   className="btn btn-primary me-2"
-                  onClick={() => dispatch(addToWishlist(product))}
+                  onClick={() => handleAddtoWishlist(id)}
                 >
                   <FaHeart className="me-1" />
                   Wishlist

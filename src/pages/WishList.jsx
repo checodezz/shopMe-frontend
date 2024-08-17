@@ -1,11 +1,63 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  toggleWishlist,
+  toggleWishlistOptimistic,
+} from "../features/wishlist/wishlistSlice";
+import { fetchProducts } from "../features/products/productSlice";
+import { useEffect } from "react";
+// import "./Wishlist.css"; // Import your custom CSS file
+import "../css/Wishlist.css";
 
 const WishList = () => {
-  //   console.log(first);
-  const product = useSelector((state) => state.wishlist.products);
-  console.log(product);
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products.products);
 
-  return <h1>Wishlist</h1>;
+  // Filtering wishlist products directly
+  const wishlistProducts = products.filter((product) => product.wishlist);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch, wishlistProducts]);
+
+  const handleWishlistToggle = (productId) => {
+    dispatch(toggleWishlistOptimistic(productId));
+    dispatch(toggleWishlist(productId));
+  };
+
+  return (
+    <div className="wishlist-page">
+      <h1 className="wishlist-title">Wishlist</h1>
+      <div className="wishlist-container">
+        {wishlistProducts.length > 0 ? (
+          wishlistProducts.map((product) => (
+            <div key={product._id} className="wishlist-card">
+              <img
+                src={product.productImage}
+                alt={product.name}
+                className="wishlist-image"
+              />
+              <div className="wishlist-info">
+                <h2 className="wishlist-product-name">{product.name}</h2>
+                <p className="wishlist-product-price">
+                  Price: ₹{product.price}
+                </p>
+                <button
+                  className="wishlist-toggle-btn"
+                  onClick={() => handleWishlistToggle(product._id)}
+                >
+                  {product.wishlist
+                    ? "Remove from Wishlist"
+                    : "Add to Wishlist"}
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>Your wishlist is empty.</p>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default WishList;
