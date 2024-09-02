@@ -7,7 +7,9 @@ import Header from "./components/Header";
 import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
 import WishList from "./pages/WishList";
+import Footer from "./components/Footer";
 import Cart from "./pages/Cart";
+import User from "./components/User";
 
 function App() {
   return (
@@ -16,11 +18,13 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/products/all" element={<Products />} />
+          <Route path="/products/:category" element={<Products />} />
           <Route path="/productDetails/:id" element={<ProductDetails />} />
           <Route path="/wishlist" element={<WishList />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/user" element={<User />} />
         </Routes>
+        <Footer />
       </Router>
     </>
   );
