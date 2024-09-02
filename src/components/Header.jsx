@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaHeart } from "react-icons/fa";
-import { CiShoppingCart } from "react-icons/ci";
+import { CiShoppingCart, CiUser } from "react-icons/ci";
 import { FaSearch } from "react-icons/fa";
 import "../css/Header.css";
 import { useEffect } from "react";
@@ -79,6 +79,17 @@ const Header = () => {
                   }}
                 />
                 <span className="cart-item-count">{cartCount}</span>
+              </Link>
+            </div>
+            <div className="user-icon-container">
+              <Link to="/user" style={{ textDecoration: "none" }}>
+                <CiUser
+                  style={{
+                    fontSize: "1.5rem",
+                    color: "black",
+                  }}
+                />
+                {/* <span className="cart-item-count">{cartCount}</span> */}
               </Link>
             </div>
           </div>

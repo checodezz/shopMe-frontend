@@ -7,18 +7,19 @@ import {
   MEN_IMAGE,
   WOMEN_IMAGE,
 } from "../utils/images/images";
+import Carousal from "../components/Carousal";
 
 const Homepage = () => {
   const categories = [
-    { name: "Men", image: MEN_IMAGE, link: "/category/men" },
-    { name: "Women", image: WOMEN_IMAGE, link: "/category/women" },
-    { name: "Kids", image: KID_IMAGE, link: "/category/kids" },
-    { name: "Discover", image: FAMILY_IMAGE, link: "/products/all" },
+    { name: "Men", image: MEN_IMAGE },
+    { name: "Women", image: WOMEN_IMAGE },
+    { name: "Kids", image: KID_IMAGE },
+    { name: "All", image: FAMILY_IMAGE },
   ];
 
   return (
     <div>
-      <div className="container-fluid mb-5 ">
+      <div className="container-fluid mb-5 mt-3">
         <img
           src={BANNER_IMAGE}
           alt=""
@@ -30,7 +31,10 @@ const Homepage = () => {
         <div className="row">
           {categories.map((category, index) => (
             <div className="col-md-3 px-2" key={index}>
-              <Link to={category.link} className="category-link">
+              <Link
+                to={`/products/${category.name.toLocaleLowerCase()}`}
+                className="category-link"
+              >
                 <div className="category-card mx-4 rounded">
                   <img
                     src={category.image}
@@ -46,6 +50,7 @@ const Homepage = () => {
           ))}
         </div>
       </div>
+      <Carousal />
     </div>
   );
 };

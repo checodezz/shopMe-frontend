@@ -10,21 +10,28 @@ const Filters = () => {
   const dispatch = useDispatch();
   const { categories, rating, sort } = useSelector((state) => state.products);
 
+  // Handle category checkbox changes
   const handleCategoryChange = (e) => {
     dispatch(
-      setCategories({ value: e.target.value, checked: e.target.checked })
+      setCategories({
+        value: e.target.value.toLowerCase(),
+        checked: e.target.checked,
+      })
     );
   };
 
+  // Handle rating radio button changes
   const handleRadioInput = (e) => {
     dispatch(setRating(e.target.value));
   };
 
+  // Handle sorting options changes
   const handleSort = (e) => {
     dispatch(setSort(e.target.value));
   };
 
-  const isAllChecked = categories.length === 3;
+  // Check if all categories are selected
+  const isAllChecked = categories.every((cat) => cat.checked);
 
   return (
     <div className="filters mt-5 px-5">
@@ -43,8 +50,12 @@ const Filters = () => {
           <input
             type="checkbox"
             id="all"
-            value="All"
-            onChange={handleCategoryChange}
+            value="all"
+            onChange={(e) =>
+              dispatch(
+                setCategories({ value: "all", checked: e.target.checked })
+              )
+            }
             checked={isAllChecked}
             className="form-check-input"
           />
@@ -52,103 +63,45 @@ const Filters = () => {
             All
           </label>
         </div>
-        <div className="form-check">
-          <input
-            type="checkbox"
-            id="men"
-            value="Men"
-            onChange={handleCategoryChange}
-            checked={categories.includes("Men")}
-            className="form-check-input"
-          />
-          <label htmlFor="men" className="form-check-label">
-            Men
-          </label>
-        </div>
-        <div className="form-check">
-          <input
-            type="checkbox"
-            id="women"
-            value="Women"
-            onChange={handleCategoryChange}
-            checked={categories.includes("Women")}
-            className="form-check-input"
-          />
-          <label htmlFor="women" className="form-check-label">
-            Women
-          </label>
-        </div>
-        <div className="form-check">
-          <input
-            type="checkbox"
-            id="kids"
-            value="Kids"
-            onChange={handleCategoryChange}
-            checked={categories.includes("Kids")}
-            className="form-check-input"
-          />
-          <label htmlFor="kids" className="form-check-label">
-            Kids
-          </label>
-        </div>
+        {categories.map((cat) => (
+          <div className="form-check" key={cat.value}>
+            <input
+              type="checkbox"
+              id={cat.value.toLowerCase()}
+              value={cat.value.toLowerCase()}
+              onChange={handleCategoryChange}
+              checked={cat.checked}
+              className="form-check-input"
+            />
+            <label
+              htmlFor={cat.value.toLowerCase()}
+              className="form-check-label"
+            >
+              {cat.value}
+            </label>
+          </div>
+        ))}
 
         <h3 className="mt-4">Rating</h3>
-        <div className="form-check">
-          <input
-            type="radio"
-            id="rating-4"
-            name="rating"
-            value="4"
-            onChange={handleRadioInput}
-            checked={rating === "4"}
-            className="form-check-input"
-          />
-          <label htmlFor="rating-4" className="form-check-label">
-            <strong>4</strong> Star & Above
-          </label>
-        </div>
-        <div className="form-check">
-          <input
-            type="radio"
-            id="rating-3"
-            name="rating"
-            value="3"
-            onChange={handleRadioInput}
-            checked={rating === "3"}
-            className="form-check-input"
-          />
-          <label htmlFor="rating-3" className="form-check-label">
-            <strong>3</strong> Star & Above
-          </label>
-        </div>
-        <div className="form-check">
-          <input
-            type="radio"
-            id="rating-2"
-            name="rating"
-            value="2"
-            onChange={handleRadioInput}
-            checked={rating === "2"}
-            className="form-check-input"
-          />
-          <label htmlFor="rating-2" className="form-check-label">
-            <strong>2</strong> Star & Above
-          </label>
-        </div>
-        <div className="form-check">
-          <input
-            type="radio"
-            id="rating-1"
-            name="rating"
-            value="1"
-            onChange={handleRadioInput}
-            checked={rating === "1"}
-            className="form-check-input"
-          />
-          <label htmlFor="rating-1" className="form-check-label">
-            <strong>1</strong> Star & Above
-          </label>
-        </div>
+        {[4, 3, 2, 1].map((ratingValue) => (
+          <div className="form-check" key={ratingValue}>
+            <input
+              type="radio"
+              id={`rating-${ratingValue}`}
+              name="rating"
+              value={ratingValue}
+              onChange={handleRadioInput}
+              checked={rating === ratingValue.toString()}
+              className="form-check-input"
+            />
+            <label
+              htmlFor={`rating-${ratingValue}`}
+              className="form-check-label"
+            >
+              <strong>{ratingValue}</strong> Star & Above
+            </label>
+          </div>
+        ))}
 
         <h3 className="mt-4">Sort by Price</h3>
         <div className="form-check">

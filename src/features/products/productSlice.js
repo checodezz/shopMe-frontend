@@ -15,7 +15,9 @@ export const productSlice = createSlice({
         products: [],
         status: "idle",
         error: null,
-        categories: ["Men", "Women", "Kids"],
+        categories: [{ value: 'men', checked: false },
+        { value: 'women', checked: false },
+        { value: 'kids', checked: false }],
         rating: null,
         sort: null
     },
@@ -24,13 +26,14 @@ export const productSlice = createSlice({
         setCategories: (state, action) => {
             const { value, checked } = action.payload;
 
-            if (value === "All") {
-                state.categories = checked ? ["Men", "Women", "Kids"] : []
+            if (value === "all") {
+                state.categories.forEach((category) => {
+                    category.checked = checked;
+                });
             } else {
-                if (checked) {
-                    state.categories.push(value);
-                } else {
-                    state.categories = state.categories.filter((category) => category !== value)
+                const category = state.categories.find((cat) => cat.value === value);
+                if (category) {
+                    category.checked = checked;
                 }
             }
         },
@@ -41,10 +44,12 @@ export const productSlice = createSlice({
             state.sort = action.payload
         },
         clearFilters: (state) => {
-            state.categories = ["Men", "Women", "Kids"],
-                state.rating = null,
-                state.sort = null
-        }
+            state.categories.forEach((category) => {
+                category.checked = false;
+            });
+            state.rating = null;
+            state.sort = 'ascending';
+        },
     },
 
     extraReducers: (builder) => {
