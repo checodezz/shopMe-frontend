@@ -182,3 +182,11 @@
     border-top: 1px solid #dee2e6;
     margin: 1.5rem 0;
 }
+
+
+.address-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
