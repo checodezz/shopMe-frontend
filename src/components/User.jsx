@@ -1,27 +1,56 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import AddressModal from "./AddressModal";
-
+import AddressList from "./AddressList";
+import { useSelector } from "react-redux";
 function User() {
   const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    mobileNumber: "",
+    secondaryMobileNumber: "",
+    state: "",
+    city: "",
+    postalCode: "",
+    address: "",
+  });
 
-  const handleShowModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
+  const addresses = useSelector((state) => state.address.addresses);
+  console.log(addresses);
 
-  const handleSaveAddress = () => {
-    setShowModal(false);
+  const handleEdit = (address) => {
+    setFormData(address);
+    setShowModal(true);
   };
 
   return (
-    <div className="container">
-      <Button variant="primary" onClick={handleShowModal}>
+    <div className="container text-center">
+      <Button
+        variant="secondary"
+        onClick={() => {
+          setFormData({
+            name: "",
+            mobileNumber: "",
+            secondaryMobileNumber: "",
+            state: "",
+            city: "",
+            postalCode: "",
+            address: "",
+          });
+          setShowModal(true);
+        }}
+      >
         Add New Address
       </Button>
 
+      <AddressList addresses={addresses} onEdit={handleEdit} />
+
       <AddressModal
         show={showModal}
-        handleClose={handleCloseModal}
-        handleSave={handleSaveAddress}
+        handleClose={() => setShowModal(false)}
+        handleSave={() => setShowModal(false)}
+        formData={formData}
+        setFormData={setFormData}
       />
     </div>
   );
