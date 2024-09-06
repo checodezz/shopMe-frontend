@@ -14,14 +14,14 @@ const Header = () => {
   //   (state) => state.wishlist.products
   // ).length;
 
-  const cartCount = useSelector((state) => state?.cart?.products).length;
+  const cartCount = useSelector((state) => state.cart.products).length;
   const cartStatus = useSelector((state) => state.cart.status);
+  const wishlistCount = useSelector((state) => state.wishlist.products).length;
 
   useEffect(() => {
-    if (cartStatus === "idle") {
-      dispatch(fetchCart());
-    }
+    dispatch(fetchCart());
   }, [dispatch, cartStatus]);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
       <div className="container-fluid px-5">
@@ -65,9 +65,7 @@ const Header = () => {
                   }}
                 />
 
-                <span className="wishlist-item-count">
-                  {/* {wishlistProductCount} */}
-                </span>
+                <span className="wishlist-item-count">{}</span>
               </Link>
             </div>
             <div className="cart-icon-container">
