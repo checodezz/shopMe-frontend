@@ -9,11 +9,13 @@ import {
 import { useEffect } from "react";
 import { CiSquarePlus, CiSquareMinus } from "react-icons/ci";
 import { AiFillDelete } from "react-icons/ai";
+import { Link, useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.products);
-  console.log(cartItems);
+  const navigate = useNavigate(); // Use navigate hook
+
   useEffect(() => {
     dispatch(fetchCart());
   }, [dispatch]);
@@ -27,6 +29,17 @@ const Cart = () => {
     dispatch(deleteProduct(productId));
     dispatch(deleteProductFromCart(productId));
   };
+
+  // Calculate total price
+  const totalPrice = cartItems
+    .reduce((acc, item) => acc + item.productId.price * item.quantity, 0)
+    .toFixed(2);
+
+  // Function to navigate to Checkout with total price
+  const handleCheckout = () => {
+    navigate(`/checkout?total=${totalPrice}`);
+  };
+
   return (
     <div className="container mt-3" style={{ fontSize: "0.9rem" }}>
       <h2 className="text-center mb-4">Your Cart</h2>
@@ -125,18 +138,15 @@ const Cart = () => {
               ))}
               <hr />
               <p className="d-flex justify-content-between">
-                <strong>Total price:</strong>{" "}
-                <strong>
-                  ₹
-                  {cartItems
-                    .reduce(
-                      (acc, item) => acc + item.productId.price * item.quantity,
-                      0
-                    )
-                    .toFixed(2)}
-                </strong>
+                <strong>Total price:</strong> <strong>₹{totalPrice}</strong>
               </p>
-              <button className="btn btn-primary w-100">CHECKOUT</button>
+
+              <button
+                onClick={handleCheckout} // Trigger checkout with total price
+                className="btn btn-primary w-100"
+              >
+                CHECKOUT
+              </button>
             </div>
           </div>
         </div>
