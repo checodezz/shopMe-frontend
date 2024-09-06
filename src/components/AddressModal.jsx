@@ -1,53 +1,36 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import {
+  addAddress,
+  fetchAddresses,
+  updateAddress,
+} from "../features/address/addressSlice";
+import { useDispatch } from "react-redux";
+import { states } from "../utils/images/constants";
 
-const AddressModal = ({ show, handleClose, handleSave }) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    mobileNumber: "",
-    secondaryMobileNumber: "",
-    state: "",
-    city: "",
-    postalCode: "",
-    address: "",
-  });
+const AddressModal = ({
+  show,
+  handleClose,
+  handleSave,
+  formData,
+  setFormData,
+}) => {
+  const dispatch = useDispatch();
 
-  const states = [
-    "Andhra Pradesh",
-    "Arunachal Pradesh",
-    "Assam",
-    "Bihar",
-    "Chhattisgarh",
-    "Goa",
-    "Gujarat",
-    "Haryana",
-    "Himachal Pradesh",
-    "Jharkhand",
-    "Karnataka",
-    "Kerala",
-    "Madhya Pradesh",
-    "Maharashtra",
-    "Manipur",
-    "Meghalaya",
-    "Mizoram",
-    "Nagaland",
-    "Odisha",
-    "Punjab",
-    "Rajasthan",
-    "Sikkim",
-    "Tamil Nadu",
-    "Telangana",
-    "Tripura",
-    "Uttar Pradesh",
-    "Uttarakhand",
-    "West Bengal",
-  ];
+  useEffect(() => {
+    dispatch(fetchAddresses());
+  }, [dispatch]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (event.target.checkValidity()) {
       handleSave();
       handleClose();
+      if (!formData._id) {
+        dispatch(addAddress(formData));
+      } else {
+        dispatch(updateAddress(formData));
+      }
     } else {
       event.target.reportValidity();
     }
@@ -63,15 +46,15 @@ const AddressModal = ({ show, handleClose, handleSave }) => {
     ) {
       updatedValue = value ? parseInt(value) : "";
     }
-    console.log(id, value);
     setFormData({ ...formData, [id]: updatedValue });
-    console.log(formData);
   };
 
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Add New Address</Modal.Title>
+        <Modal.Title>
+          {formData._id ? "Edit Address" : "Add New Address"}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
