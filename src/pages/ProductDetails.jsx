@@ -9,6 +9,7 @@ import { toggleWishlist } from "../features/wishlist/wishlistSlice";
 const ProductDetails = () => {
   const [addedToWishlist, setAddedToWishlist] = useState(false);
   const [inCart, setInCart] = useState(false);
+  const [showGoToCart, setShowGoToCart] = useState(false);
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const ProductDetails = () => {
     error = null,
   } = useSelector((state) => state.productDetails.product || {});
   const cartProducts = useSelector((state) => state.cart.products);
-  console.log(cartProducts);
+
   useEffect(() => {
     dispatch(fetchProductById(id));
     dispatch(fetchCart());
@@ -32,11 +33,8 @@ const ProductDetails = () => {
       setAddedToWishlist(product.wishlist);
     }
     const isInCart = cartProducts.some((item) => item.productId._id === id);
-    console.log(isInCart);
     setInCart(isInCart);
   }, [product.wishlist, cartProducts, id]);
-
-  console.log(inCart);
 
   const handleAddtoWishlist = (productId) => {
     dispatch(toggleWishlist(productId));
@@ -49,6 +47,10 @@ const ProductDetails = () => {
   const handleAddtoCart = () => {
     dispatch(updatedCart({ id, operation: "increment" }));
     setInCart(true);
+    setShowGoToCart(true); // Show "Go to Cart" button
+  };
+
+  const handleGoToCart = () => {
     navigate("/cart");
   };
 
@@ -114,12 +116,15 @@ const ProductDetails = () => {
                   <FaHeart className="me-1" />
                   {addedToWishlist ? "Remove from wishlist" : "Add to wishlist"}
                 </button>
-                <button
-                  className="btn btn-primary"
-                  onClick={inCart ? () => navigate("/cart") : handleAddtoCart}
-                >
-                  {inCart ? "Go to Cart" : "Add to Cart"}
-                </button>
+                {!showGoToCart ? (
+                  <button className="btn btn-primary" onClick={handleAddtoCart}>
+                    {inCart ? "Go to Cart" : "Add to Cart"}
+                  </button>
+                ) : (
+                  <button className="btn btn-primary" onClick={handleGoToCart}>
+                    Go to Cart
+                  </button>
+                )}
               </div>
             </div>
           </div>
