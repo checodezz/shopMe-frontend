@@ -1,29 +1,41 @@
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { FaHeart } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { FaHeart, FaSearch } from "react-icons/fa";
 import { CiShoppingCart, CiUser } from "react-icons/ci";
-import { FaSearch } from "react-icons/fa";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/Header.css";
-import { useEffect } from "react";
-import { fetchCart } from "../features/cart/cartSlice";
 
 const Header = () => {
-  const dispatch = useDispatch();
-  // const wishlistProductCount = useSelector(
-  //   (state) => state.wishlist.products
-  // ).length;
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const products = useSelector((state) => state.products.products);
+  const cartCount = useSelector((state) => state.cart.products.length);
+  const navigate = useNavigate();
 
-  const cartCount = useSelector((state) => state.cart.products).length;
-  const cartStatus = useSelector((state) => state.cart.status);
-  const wishlistCount = useSelector((state) => state.wishlist.products).length;
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
 
-  useEffect(() => {
-    dispatch(fetchCart());
-  }, [dispatch, cartStatus]);
+    if (value.trim() === "") {
+      setFilteredProducts([]);
+      return;
+    }
+
+    const filtered = products.filter((product) =>
+      product.name.toLowerCase().includes(value.trim().toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  };
+
+  const handleProductClick = (productId) => {
+    setSearchQuery("");
+    setFilteredProducts([]);
+    navigate(`/productDetails/${productId}`);
+  };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg navbar-light bg-body-secondary">
       <div className="container-fluid px-5">
         <Link
           to="/"
@@ -31,17 +43,7 @@ const Header = () => {
         >
           ShopMe
         </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+
         <div className="collapse navbar-collapse" id="navbarNav">
           <form className="form-inline mx-auto">
             <div className="search-container">
@@ -49,47 +51,46 @@ const Header = () => {
                 className="form-control search-input"
                 type="search"
                 placeholder="Search for products"
+                value={searchQuery}
+                onChange={handleSearchChange}
                 aria-label="Search"
               />
               <FaSearch className="search-icon" />
             </div>
-          </form>
-          <div className="icons">
-            <div className="wishlist-icon-container">
-              <Link to="/wishlist" style={{ textDecoration: "none" }}>
-                <FaHeart
-                  className="ms-auto"
-                  style={{
-                    fontSize: "1.5rem",
-                    color: "red",
-                  }}
-                />
 
-                <span className="wishlist-item-count">{}</span>
-              </Link>
-            </div>
-            <div className="cart-icon-container">
-              <Link to="/cart" style={{ textDecoration: "none" }}>
-                <CiShoppingCart
-                  style={{
-                    fontSize: "1.5rem",
-                    color: "black",
-                  }}
-                />
-                <span className="cart-item-count">{cartCount}</span>
-              </Link>
-            </div>
-            <div className="user-icon-container">
-              <Link to="/user" style={{ textDecoration: "none" }}>
-                <CiUser
-                  style={{
-                    fontSize: "1.5rem",
-                    color: "black",
-                  }}
-                />
-                {/* <span className="cart-item-count">{cartCount}</span> */}
-              </Link>
-            </div>
+            {filteredProducts.length > 0 && (
+              <div className="dropdown-menu show search-results">
+                {filteredProducts.map((product) => (
+                  <div
+                    key={product._id}
+                    className="dropdown-item"
+                    onClick={() => handleProductClick(product._id)}
+                  >
+                    {product.name}
+                  </div>
+                ))}
+              </div>
+            )}
+          </form>
+
+          <div className="icons">
+            <Link to="/wishlist" style={{ textDecoration: "none" }}>
+              <FaHeart
+                className="ms-auto"
+                style={{
+                  fontSize: "1.5rem",
+                  color: "red",
+                  marginRight: "1rem",
+                }}
+              />
+            </Link>
+            <Link to="/cart" style={{ textDecoration: "none" }}>
+              <CiShoppingCart style={{ fontSize: "1.5rem", color: "black" }} />
+              <span className="cart-item-count">{cartCount}</span>
+            </Link>
+            <Link to="/user" style={{ textDecoration: "none" }}>
+              <CiUser style={{ fontSize: "1.5rem", color: "black" }} />
+            </Link>
           </div>
         </div>
       </div>

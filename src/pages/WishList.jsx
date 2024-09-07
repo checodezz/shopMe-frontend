@@ -24,6 +24,16 @@ const WishList = () => {
     dispatch(toggleWishlist(productId));
   };
 
+  if (wishlistProducts <= 0)
+    return (
+      <div className="container">
+        <h1 className="wishlist-title">Wishlist</h1>
+        <h4 className=" text-center p-5 m-5" style={{ height: "350px" }}>
+          Your Wishlist is Empty
+        </h4>
+      </div>
+    );
+
   return (
     <div className="wishlist-page">
       <h1 className="wishlist-title">Wishlist</h1>
@@ -53,7 +63,7 @@ const WishList = () => {
             </div>
           ))
         ) : (
-          <p>Your wishlist is empty.</p>
+          <p className="">Your wishlist is empty.</p>
         )}
       </div>
     </div>

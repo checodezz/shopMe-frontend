@@ -11,7 +11,7 @@ const AddressList = ({ addresses, onEdit }) => {
   };
 
   const cardStyle = {
-    width: "400px", // Fixed width for consistency
+    width: "800px", // Fixed width for consistency
     height: "280px", // Fixed height for consistency
     border: "1px solid #ddd",
     borderRadius: "5px",
@@ -46,6 +46,7 @@ const AddressList = ({ addresses, onEdit }) => {
 
   return (
     <div style={containerStyle}>
+      <h1 className="display-5 pb-4">Addresses </h1>
       {addresses.map((address, index) => (
         <div key={index} style={cardStyle}>
           <div style={addressDetailStyle}>

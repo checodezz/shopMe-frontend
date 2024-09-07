@@ -1,8 +1,11 @@
-const Carousal = () => {
-  const imageHeight = "300px"; // Set a fixed height for all images
+import { CAROUSEL_IMAGE_1, CAROUSEL_IMAGE_2 } from "../utils/images/images";
 
+const Carousal = () => {
   return (
-    <div id="carouselExampleIndicators" className="carousel slide">
+    <div
+      id="carouselExampleIndicators"
+      className="carousel slide container mt-3"
+    >
       <div className="carousel-indicators">
         <button
           type="button"
@@ -28,26 +31,18 @@ const Carousal = () => {
       <div className="carousel-inner">
         <div className="carousel-item active">
           <img
-            src="https://pbs.twimg.com/media/CXyHksWUQAAxJrb.jpg"
+            src={CAROUSEL_IMAGE_1}
             className="d-block w-100"
             alt="Slide 1"
-            style={{ height: imageHeight, objectFit: "cover" }} // Consistent height
+            style={{ objectFit: "cover" }}
           />
         </div>
         <div className="carousel-item">
           <img
-            src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/14d5f677630559.5c8d3005a7c9c.png"
+            src={CAROUSEL_IMAGE_2}
             className="d-block w-100"
             alt="Slide 2"
-            style={{ height: imageHeight, objectFit: "cover" }} // Consistent height
-          />
-        </div>
-        <div className="carousel-item">
-          <img
-            src="https://i.pinimg.com/736x/b1/dd/8b/b1dd8b234a63c0860846300f44725be3.jpg"
-            className="d-block w-100"
-            alt="Slide 3"
-            style={{ height: imageHeight, objectFit: "cover" }} // Consistent height
+            style={{ objectFit: "cover", maxHeight: "380px" }}
           />
         </div>
       </div>

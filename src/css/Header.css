@@ -26,16 +26,12 @@
 .search-container {
     position: relative;
     width: 300px;
-    /* Adjust width as needed */
 }
 
 .search-input {
     padding-right: 2.5rem;
-    /* Space for the icon */
     height: 38px;
-    /* Decrease height */
-    /* border-radius: 20px; */
-    /* Rounded corners for a modern look */
+
 }
 
 .search-icon {
@@ -44,28 +40,37 @@
     top: 50%;
     transform: translateY(-50%);
     color: #aaa;
-    /* Icon color */
     font-size: 1.2rem;
-    /* Adjust icon size */
 }
 
 .logo {
     max-height: 50px;
-    /* Adjust height as needed */
-    /* Optionally, you can add more styles like margin or padding here */
 }
 
 .navbar {
     position: -webkit-sticky;
-    /* For Safari */
     position: sticky;
     top: 0;
     z-index: 1030;
-    /* Ensure the header is above other content */
     background-color: #fff;
-    /* Ensure the header has a background */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* Add a subtle shadow for depth */
     padding: 10px 0;
-    /* Adjust padding as needed */
+}
+
+.search-results {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ddd;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.search-results .dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.search-results .dropdown-item:hover {
+    background-color: #f1f1f1;
 }
