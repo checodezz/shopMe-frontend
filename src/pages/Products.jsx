@@ -59,7 +59,7 @@ const Products = () => {
             {category
               ? `${
                   category.charAt(0).toUpperCase() + category.slice(1)
-                } Products`
+                } Products (${sortedProducts.length})`
               : "All Products"}
           </h3>
           <div className="row">

@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Card, Container } from "react-bootstrap";
 import AddressModal from "./AddressModal";
 import AddressList from "./AddressList";
 import { useSelector } from "react-redux";
+
 function User() {
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
@@ -15,8 +16,15 @@ function User() {
     address: "",
   });
 
+  // Hardcoded dummy user profile data
+  const userProfile = {
+    name: "John Doe",
+    email: "john.doe@example.com",
+    phoneNumber: "+1234567890",
+    address: "123 Main St, Springfield, USA",
+  };
+
   const addresses = useSelector((state) => state.address.addresses);
-  console.log(addresses);
 
   const handleEdit = (address) => {
     setFormData(address);
@@ -24,9 +32,32 @@ function User() {
   };
 
   return (
-    <div className="container text-center">
+    <Container style={{ maxWidth: "800px", marginTop: "20px" }}>
+      {/* User Profile Section */}
+      <h1 className="text-center pb-4">User Profile</h1>
+      <Card className="mb-4 p-3 shadow-sm">
+        <Card.Body>
+          <div style={{ marginBottom: "1rem" }}>
+            <p>
+              <strong>Name:</strong> {userProfile.name}
+            </p>
+            <p>
+              <strong>Email:</strong> {userProfile.email}
+            </p>
+            <p>
+              <strong>Phone Number:</strong> {userProfile.phoneNumber}
+            </p>
+            <p>
+              <strong>Address:</strong> {userProfile.address}
+            </p>
+          </div>
+        </Card.Body>
+      </Card>
+
+      {/* Address Management Section */}
       <Button
-        variant="secondary"
+        variant="primary"
+        className="mb-3"
         onClick={() => {
           setFormData({
             name: "",
@@ -52,7 +83,7 @@ function User() {
         formData={formData}
         setFormData={setFormData}
       />
-    </div>
+    </Container>
   );
 }
 
