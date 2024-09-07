@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import AddressModal from "../components/AddressModal";
 import { fetchAddresses } from "../features/address/addressSlice";
 import { VscDiffAdded } from "react-icons/vsc";
+import { API } from "../utils/images/constants";
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const Checkout = () => {
       const amount = totalPrice * 100;
       const currency = "INR";
       const response = await axios.post(
-        "http://localhost:3000/order",
+        `${API}/order`,
         {
           amount,
           currency,
