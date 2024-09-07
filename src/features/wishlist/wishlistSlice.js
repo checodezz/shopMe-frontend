@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice, } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API } from "../../utils/images/constants";
 
 export const toggleWishlist = createAsyncThunk('wishlist/toggleWishlist', async (productId) => {
-    const response = await axios.post(`http://localhost:3000/wishlist/toggle/${productId}`);
+    const response = await axios.post(`${API}/wishlist/toggle/${productId}`);
     return response.data;
 });
 
