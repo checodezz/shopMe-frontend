@@ -1,5 +1,3 @@
-// components/Products.js
-
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -27,7 +25,6 @@ const Products = () => {
     }
   }, [dispatch, category]);
 
-  // Filter products based on the categories selected in the Filters component
   const filteredProducts = products.filter((product) => {
     const selectedCategories = categories
       .filter((cat) => cat.checked)
@@ -55,11 +52,15 @@ const Products = () => {
     <div className="products-page">
       <div className="row ps-4 bg-body-tertiary">
         <div className="col-md-3">
-          <Filters category={category} />
+          <Filters />
         </div>
         <div className="col-md-9">
-          <h3 className="text-center pt-3">
-            {category ? `${category} Products` : "All Products"}
+          <h3 className="text-center pt-3 pb-2 display-6">
+            {category
+              ? `${
+                  category.charAt(0).toUpperCase() + category.slice(1)
+                } Products`
+              : "All Products"}
           </h3>
           <div className="row">
             {sortedProducts.length > 0 ? (
