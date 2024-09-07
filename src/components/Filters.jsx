@@ -31,7 +31,9 @@ const Filters = () => {
   };
 
   // Check if all categories are selected
-  const isAllChecked = categories.every((cat) => cat.checked);
+  const isAllChecked =
+    categories.every((cat) => cat.checked) ||
+    categories.every((cat) => !cat.checked);
 
   return (
     <div className="filters mt-5 px-5">
@@ -77,7 +79,7 @@ const Filters = () => {
               htmlFor={cat.value.toLowerCase()}
               className="form-check-label"
             >
-              {cat.value}
+              {cat.value.charAt(0).toUpperCase() + cat.value.slice(1)}
             </label>
           </div>
         ))}
