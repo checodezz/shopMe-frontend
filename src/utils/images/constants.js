@@ -28,3 +28,5 @@ export const states = [
     "Uttarakhand",
     "West Bengal",
 ];
+
+export const API = "https://shopme-backend-two.vercel.app"   

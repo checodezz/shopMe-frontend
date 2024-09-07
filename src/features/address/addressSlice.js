@@ -1,23 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API } from "../../utils/images/constants";
 
 export const addAddress = createAsyncThunk("address/addAddress", async (address) => {
-    const response = await axios.post("http://localhost:3000/address", address);
+    const response = await axios.post(`${API}/address`, address);
     return response.data.address
 })
 
 export const fetchAddresses = createAsyncThunk("address/fetchAddress", async () => {
-    const response = await axios.get("http://localhost:3000/address");
+    const response = await axios.get(`${API}/address`);
     return response.data.addresses
 })
 
 export const updateAddress = createAsyncThunk('address/updateAddress', async (address) => {
-    const response = await axios.put(`http://localhost:3000/address/${address._id}`, address);
+    const response = await axios.put(`${API}/address/${address._id}`, address);
     return response.data;
 });
 
 export const deleteAddress = createAsyncThunk("address/deleteAddress", async (addressId) => {
-    const response = await axios.delete(`http://localhost:3000/address/${addressId}`);
+    const response = await axios.delete(`${API}/address/${addressId}`);
     return response.data.id
 })
 
