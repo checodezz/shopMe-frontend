@@ -1,12 +1,11 @@
 import axios from "axios";
-// import Razorpay from "razorpay";
-
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Container, Form, Button, Card } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import AddressModal from "../components/AddressModal";
 import { fetchAddresses } from "../features/address/addressSlice";
+import { VscDiffAdded } from "react-icons/vsc";
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -117,13 +116,16 @@ const Checkout = () => {
   };
 
   return (
-    <Container className="mt-5">
-      <h2 className="text-center mb-4">Checkout</h2>
+    <Container className="mt-2">
+      <h2 className="text-center mb-5">Checkout</h2>
       <Form>
-        <div className="text-center mb-3">
-          <Button variant="secondary" onClick={handleAddNewAddress}>
-            Add New Address
-          </Button>
+        <div
+          className="text-center mb-3"
+          onClick={handleAddNewAddress}
+          style={{ cursor: "pointer" }}
+        >
+          <VscDiffAdded size={28} />
+          <p>Add New Address </p>
         </div>
         {addresses.map((address) => (
           <Card
@@ -151,7 +153,7 @@ const Checkout = () => {
             </Card.Body>
           </Card>
         ))}
-        <div className="text-center mt-4">
+        <div className="text-center mt-4 mb-5 pb-4">
           <Button
             variant="primary"
             onClick={handleDeliver}
