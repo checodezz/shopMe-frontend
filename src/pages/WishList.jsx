@@ -5,14 +5,12 @@ import {
 } from "../features/wishlist/wishlistSlice";
 import { fetchProducts } from "../features/products/productSlice";
 import { useEffect } from "react";
-// import "./Wishlist.css"; // Import your custom CSS file
 import "../css/Wishlist.css";
 
 const WishList = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
 
-  // Filtering wishlist products directly
   const wishlistProducts = products.filter((product) => product.wishlist);
 
   useEffect(() => {
