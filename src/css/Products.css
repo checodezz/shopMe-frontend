@@ -128,7 +128,13 @@
     /* Scrollable if content overflows */
     box-sizing: border-box;
     /* Ensure padding and border are included in width/height */
+
 }
+
+body {
+    overflow-x: hidden;
+}
+
 
 .filters h3 {
     margin-bottom: 1.5rem;

@@ -54,7 +54,7 @@ const Products = () => {
         <div className="col-md-3">
           <Filters />
         </div>
-        <div className="col-md-9">
+        <div className="col-md-9 pe-4">
           <h3 className="text-center pt-3 pb-2 display-6">
             {category
               ? `${
