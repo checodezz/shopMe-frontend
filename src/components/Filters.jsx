@@ -36,7 +36,7 @@ const Filters = () => {
     categories.every((cat) => !cat.checked);
 
   return (
-    <div className="filters mt-5 px-5">
+    <div className="filters mt-5 px-4 ms-1">
       <div className="d-flex justify-content-between mb-3">
         <h3>Filters</h3>
         <span
