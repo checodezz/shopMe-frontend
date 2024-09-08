@@ -34,7 +34,7 @@ const Homepage = () => {
           <img
             src={BANNER_IMAGE}
             alt=""
-            className="banner-image container-fluid m-0 p-0"
+            className="banner-image container-fluid m-0 p-0 img-fluid"
           />
         </Link>
       </div>
