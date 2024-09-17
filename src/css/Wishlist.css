@@ -55,13 +55,13 @@
 
 .wishlist-product-price {
     font-size: 1.1rem;
-    color: #ff3e6c;
+    color: #007bff;
     margin-bottom: 12px;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .wishlist-toggle-btn {
-    background-color: #ff3e6c;
+    background-color: #e9335d;
     color: white;
     padding: 8px 15px;
     border: none;
@@ -75,7 +75,7 @@
 }
 
 .wishlist-toggle-btn:hover {
-    background-color: #e9335d;
+    background-color: #007bff;
 }
 
 .wishlist-empty-message {

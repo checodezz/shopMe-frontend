@@ -2,9 +2,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { fetchProductById } from "../features/products/productDetailsSlice";
-import { FaHeart } from "react-icons/fa";
-import { updatedCart, fetchCart } from "../features/cart/cartSlice";
 import { toggleWishlist } from "../features/wishlist/wishlistSlice";
+import { updatedCart, fetchCart } from "../features/cart/cartSlice";
+import { FaHeart } from "react-icons/fa";
+import { FaCartShopping } from "react-icons/fa6";
+
+import styles from "../css/ProductDetails.module.css";
 
 const ProductDetails = () => {
   const [addedToWishlist, setAddedToWishlist] = useState(false);
@@ -15,7 +18,6 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Fetch product details and cart from the Redux store
   const {
     product = {},
     status = "idle",
@@ -67,64 +69,74 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="container">
-      <h2 className="display-5 text-center">Product Details</h2>
-      <div className="card m-3 mt-4">
-        <div className="row g-0">
-          <div className="col-md-4 card-img-container">
-            <img
-              src={product.productImage}
-              className="img-fluid"
-              alt={product.name}
-              style={{ objectFit: "cover", width: "100%", height: "100%" }}
-            />
-          </div>
-          <div className="col-md-8">
-            <div className="card-body ms-2">
-              <h1 className="card-title py-2" style={{ fontSize: "50px" }}>
-                {product.name}
-              </h1>
-              <p className="card-text">
-                {product.description ||
-                  `Elevate your wardrobe with this stylish and versatile fashion piece. Designed with a keen eye for modern trends and timeless elegance, this ${product.name} combines comfort and sophistication seamlessly. Crafted from high-quality materials, it offers a flattering fit and a refined look, perfect for both casual and formal occasions.
+    <div>
+      <h1 className="text-center pt-4">Product Details</h1>
+      <div className="d-flex justify-content-center align-items-center pb-3">
+        <div className={`card ${styles.card} w-75 `}>
+          <div className="row g-0">
+            <div className={`col-md-4 ${styles.cardImgContainer}`}>
+              <img
+                src={product.productImage}
+                alt={product.name}
+                className={`img-fluid ${styles.cardImg}`}
+              />
+            </div>
+            <div className="col-md-8">
+              <div className={styles.cardBody}>
+                <h1 className={styles.cardTitle}>{product.name}</h1>
+                <p className={styles.cardText}>
+                  {product.description ||
+                    `Elevate your wardrobe with this stylish and versatile fashion piece. Designed with a keen eye for modern trends and timeless elegance, this ${product.name} combines comfort and sophistication seamlessly. Crafted from high-quality materials, it offers a flattering fit and a refined look, perfect for both casual and formal occasions.
 
   Whether you're dressing up for a night out or keeping it chic for a day at the office, this ${product.name} provides effortless style and unmatched versatility. The [feature details, such as "adjustable straps," "tailored fit," or "breathable fabric"] ensure you stay comfortable and look your best throughout the day.`}
-              </p>
-              <p>
-                <strong>Category :</strong> {product.category}
-              </p>
-              <p>
-                <strong>Ratings :</strong> {product.rating} Stars
-              </p>
-              <p>
-                <strong>Price :</strong> ₹{product.price}
-              </p>
-              <p>
-                <strong>Delivery :</strong> 4 Days
-              </p>
-              <p>
-                <small className="text-muted">
-                  All the products have a return policy of 10 days. Please read
-                  about the return policy carefully.
-                </small>
-              </p>
-              <div className="d-flex justify-content-end mt-3">
-                <button
-                  className="btn btn-primary me-2"
-                  onClick={() => handleAddtoWishlist(id)}
-                >
-                  <FaHeart className="me-1" />
-                  {addedToWishlist ? "Remove from wishlist" : "Add to wishlist"}
-                </button>
-                {!showGoToCart ? (
-                  <button className="btn btn-primary" onClick={handleAddtoCart}>
-                    {inCart ? "Go to Cart" : "Add to Cart"}
+                </p>
+                <p className={styles.details}>
+                  <strong>Category :</strong> {product.category}
+                </p>
+                <p className={styles.details}>
+                  <strong>Ratings :</strong> {product.rating} Stars
+                </p>
+                <p className={styles.details}>
+                  <strong>Price :</strong> ₹{product.price}
+                </p>
+                <p className={styles.details}>
+                  <strong>Delivery :</strong> 4 Days
+                </p>
+                <p className={styles.textMuted}>
+                  <small>
+                    All the products have a return policy of 10 days. Please
+                    read about the return policy carefully.
+                  </small>
+                </p>
+                <div className={styles.buttonContainer}>
+                  <button
+                    className={`btn btn-outline-danger ${styles.button}`}
+                    onClick={() => handleAddtoWishlist(id)}
+                  >
+                    <FaHeart size={25} className="me-1" />
+                    {"   "}
+                    {addedToWishlist
+                      ? "Remove from wishlist"
+                      : "Add to wishlist"}
                   </button>
-                ) : (
-                  <button className="btn btn-primary" onClick={handleGoToCart}>
-                    Go to Cart
-                  </button>
-                )}
+                  {!showGoToCart ? (
+                    <button
+                      className={`btn btn-outline-primary ${styles.button}`}
+                      onClick={handleAddtoCart}
+                    >
+                      <FaCartShopping size={26} />
+                      {"    "}
+                      {inCart ? "Go to Cart" : "Add to Cart"}
+                    </button>
+                  ) : (
+                    <button
+                      className={`btn btn-outline-primary ${styles.button}`}
+                      onClick={handleGoToCart}
+                    >
+                      Go to Cart
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>

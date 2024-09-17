@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Button, Card, Container } from "react-bootstrap";
+import { Button, Card, Container, Row, Col } from "react-bootstrap";
 import AddressModal from "./AddressModal";
 import AddressList from "./AddressList";
 import { useSelector } from "react-redux";
+import styles from "../css/User.module.css"; // Ensure correct path
 
 function User() {
   const [showModal, setShowModal] = useState(false);
@@ -16,12 +17,12 @@ function User() {
     address: "",
   });
 
-  // Hardcoded dummy user profile data
   const userProfile = {
     name: "John Doe",
     email: "john.doe@example.com",
     phoneNumber: "+1234567890",
     address: "123 Main St, Springfield, USA",
+    image: "https://via.placeholder.com/150",
   };
 
   const addresses = useSelector((state) => state.address.addresses);
@@ -32,32 +33,41 @@ function User() {
   };
 
   return (
-    <Container style={{ maxWidth: "800px", marginTop: "20px" }}>
-      {/* User Profile Section */}
+    <Container className={styles.container}>
       <h1 className="text-center pb-4">User Profile</h1>
-      <Card className="mb-4 p-3 shadow-sm">
-        <Card.Body>
-          <div style={{ marginBottom: "1rem" }}>
-            <p>
-              <strong>Name:</strong> {userProfile.name}
-            </p>
-            <p>
-              <strong>Email:</strong> {userProfile.email}
-            </p>
-            <p>
-              <strong>Phone Number:</strong> {userProfile.phoneNumber}
-            </p>
-            <p>
-              <strong>Address:</strong> {userProfile.address}
-            </p>
-          </div>
-        </Card.Body>
+      <Card className={styles.profileCard}>
+        <Row className="no-gutters">
+          <Col md={3} className={styles.imageCol}>
+            <Card.Img
+              variant="top"
+              src={userProfile.image}
+              className={styles.profileImage}
+            />
+          </Col>
+          <Col md={8}>
+            <Card.Body>
+              <div className={styles.profileInfo}>
+                <p>
+                  <strong>Name:</strong> {userProfile.name}
+                </p>
+                <p>
+                  <strong>Email:</strong> {userProfile.email}
+                </p>
+                <p>
+                  <strong>Phone Number:</strong> {userProfile.phoneNumber}
+                </p>
+                <p>
+                  <strong>Address:</strong> {userProfile.address}
+                </p>
+              </div>
+            </Card.Body>
+          </Col>
+        </Row>
       </Card>
 
-      {/* Address Management Section */}
       <Button
-        variant="primary"
-        className="mb-3"
+        variant="outline-primary"
+        className={styles.addAddressButton}
         onClick={() => {
           setFormData({
             name: "",

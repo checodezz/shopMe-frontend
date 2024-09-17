@@ -7,7 +7,12 @@ import {
   clearFilters,
 } from "../features/products/productSlice";
 import Filters from "../components/Filters";
-import "../css/Products.css";
+import styles from "../css/Product.module.css";
+import { CiDeliveryTruck } from "react-icons/ci";
+import { FaStar } from "react-icons/fa";
+import { CiStar } from "react-icons/ci";
+import { PiStarHalfFill } from "react-icons/pi";
+import { PiSealCheckDuotone } from "react-icons/pi";
 
 const Products = () => {
   const { category } = useParams();
@@ -49,19 +54,19 @@ const Products = () => {
   });
 
   return (
-    <div className="products-page">
+    <div className={styles.productsPage}>
       <div className="row ps-4 bg-body-tertiary">
         <div className="col-md-3">
           <Filters />
         </div>
         <div className="col-md-9 pe-4">
-          <h3 className="text-center pt-3 pb-2 display-6">
+          <h1 className="text-center  pb-2 text-body">
             {category
               ? `${
                   category.charAt(0).toUpperCase() + category.slice(1)
                 } Products (${sortedProducts.length})`
               : "All Products"}
-          </h3>
+          </h1>
           <div className="row">
             {sortedProducts.length > 0 ? (
               sortedProducts.map((product) => {
@@ -72,31 +77,49 @@ const Products = () => {
                       to={`/productDetails/${product._id}`}
                       style={{ textDecoration: "none" }}
                     >
-                      <div className="card h-100 product-card">
+                      <div className={`card h-100 ${styles.productCard}`}>
                         <img
                           src={
                             product.productImage ||
                             "https://via.placeholder.com/150"
                           }
-                          className="card-img-top"
+                          className={styles.cardImage}
                           alt={product.name}
                         />
                         <div className="card-body">
-                          <h5 className="card-title">{product.name}</h5>
-                          <p className="card-category text-secondary">
+                          <h5 className={styles.cardTitle}>{product.name}</h5>
+                          <p className={styles.cardCategory}>
                             {product.category}
                           </p>
-                          <p className="card-rating fw-semibold">
-                            Rating: {product.rating} ⭐️
+                          <p className={styles.cardRating}>
+                            Rating: {product.rating}{" "}
+                            <PiStarHalfFill
+                              size={35}
+                              color="gold"
+                              className="pb-2"
+                            />
                           </p>
-                          <p className="card-price">
+                          <p className={styles.cardPrice}>
                             ₹{discountedPrice.toFixed(2)}{" "}
-                            <span className="text-muted text-decoration-line-through">
+                            <span
+                              className="text-muted text-decoration-line-through"
+                              style={{ fontSize: "0.85rem" }}
+                            >
                               ₹{product.price.toFixed(2)}
                             </span>
                           </p>
+                          <p className="">
+                            {" "}
+                            <CiDeliveryTruck size={25} color="" /> Instant
+                            Delivery
+                          </p>
+                          <p className="">
+                            {" "}
+                            <PiSealCheckDuotone size={25} color="" /> Certified
+                            Seller
+                          </p>
                         </div>
-                        <button className="btn btn-primary btn-block">
+                        <button className={styles.viewButton}>
                           View Product
                         </button>
                       </div>

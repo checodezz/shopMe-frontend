@@ -1,27 +1,27 @@
-.banner-image {
+/* Homepage.module.css */
+.bannerImage {
     height: 400px;
 }
 
-.category-section {
+.categorySection {
     padding: 20px;
     text-align: center;
 }
 
-.category-card {
+.categoryCard {
     position: relative;
     overflow: hidden;
     border-radius: 30px;
 }
 
-.category-image {
+.categoryImage {
     width: 100%;
     height: 200px;
     object-fit: cover;
     transition: transform 0.3s;
-
 }
 
-.category-overlay {
+.categoryOverlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -33,13 +33,13 @@
     align-items: center;
 }
 
-.category-text {
+.categoryText {
     color: white;
     font-size: 2rem;
     font-weight: bold;
     text-transform: uppercase;
 }
 
-.category-card:hover .category-image {
+.categoryCard:hover .categoryImage {
     transform: scale(1.05);
 }

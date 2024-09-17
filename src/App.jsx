@@ -1,9 +1,7 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle";
-import Homepage from "./pages/Homepage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import Homepage from "./pages/Homepage";
 import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
 import WishList from "./pages/WishList";
@@ -11,24 +9,28 @@ import Footer from "./components/Footer";
 import Cart from "./pages/Cart";
 import User from "./components/User";
 import Checkout from "./pages/Checkout";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 function App() {
   return (
-    <>
+    <div className="wrapper">
       <Router>
         <Header />
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/products/:category" element={<Products />} />
-          <Route path="/productDetails/:id" element={<ProductDetails />} />
-          <Route path="/wishlist" element={<WishList />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/user" element={<User />} />
-          <Route path="/checkout" element={<Checkout />} />
-        </Routes>
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/products/:category" element={<Products />} />
+            <Route path="/productDetails/:id" element={<ProductDetails />} />
+            <Route path="/wishlist" element={<WishList />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/user" element={<User />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/success" element={<PaymentSuccess />} />
+          </Routes>
+        </div>
         <Footer />
       </Router>
-    </>
+    </div>
   );
 }
 

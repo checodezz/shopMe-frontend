@@ -56,7 +56,7 @@ const Cart = () => {
               const discountedPrice = productId.price - productId.discount;
 
               return (
-                <div key={item._id} className="card mb-0">
+                <div key={item._id} className="card mb-2">
                   <div className="row d-flex align-items-center g-0">
                     <div
                       className="col-md-3 d-flex align-items-center justify-content-center"

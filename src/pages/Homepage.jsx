@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "../features/products/productSlice";
-import "../css/Homepage.css";
+import styles from "../css/Homepage.module.css";
 import {
   BANNER_IMAGE,
   FAMILY_IMAGE,
@@ -12,13 +12,15 @@ import {
 } from "../utils/images/images";
 import Carousal from "../components/Carousal";
 import { useEffect } from "react";
+import { fetchCart } from "../features/cart/cartSlice";
 
 const Homepage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, []);
+    dispatch(fetchCart());
+  }, [dispatch]);
 
   const categories = [
     { name: "All", image: FAMILY_IMAGE },
@@ -34,14 +36,18 @@ const Homepage = () => {
           <img
             src={BANNER_IMAGE}
             alt=""
-            className="banner-image container-fluid m-0 p-0 img-fluid"
+            className={`${styles.bannerImage} container-fluid img-fluid`}
           />
         </Link>
       </div>
 
-      <div className="category-section">
+      <div className={styles.categorySection}>
         <div>
-          <img src={SHOP_BY_CATEGORY_IMAGE} alt="" className="container mb-2" />
+          <img
+            src={SHOP_BY_CATEGORY_IMAGE}
+            alt=""
+            className="container pt-3 pb-4"
+          />
         </div>
         <div className="row">
           {categories.map((category, index) => (
@@ -50,14 +56,14 @@ const Homepage = () => {
                 to={`/products/${category.name.toLocaleLowerCase()}`}
                 className="category-link"
               >
-                <div className="category-card mx-4 rounded">
+                <div className={`${styles.categoryCard} mx-4 rounded`}>
                   <img
                     src={category.image}
                     alt={category.name}
-                    className="category-image"
+                    className={styles.categoryImage}
                   />
-                  <div className="category-overlay">
-                    <h2 className="category-text">{category.name}</h2>
+                  <div className={styles.categoryOverlay}>
+                    <h2 className={styles.categoryText}>{category.name}</h2>
                   </div>
                 </div>
               </Link>
