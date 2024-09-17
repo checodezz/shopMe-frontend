@@ -1,7 +1,7 @@
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 const Footer = () => {
   return (
-    <div className="p-1 bg-body-secondary text-center d-flex justify-content-between align-items-center ">
+    <div className="p-3 bg-body-secondary text-center d-flex justify-content-between align-items-center ">
       <div className="container">
         <div className="">
           <a

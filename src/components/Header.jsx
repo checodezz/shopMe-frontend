@@ -1,17 +1,23 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { FaHeart, FaSearch } from "react-icons/fa";
 import { CiShoppingCart, CiUser } from "react-icons/ci";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/Header.css";
+import { fetchCart } from "../features/cart/cartSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const products = useSelector((state) => state.products.products);
   const cartCount = useSelector((state) => state.cart.products.length);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, [dispatch]);
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -44,7 +50,6 @@ const Header = () => {
           ShopMe
         </Link>
 
-        {/* Add the navbar-toggler button */}
         <button
           className="navbar-toggler"
           type="button"

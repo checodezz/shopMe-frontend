@@ -4,7 +4,7 @@ const Carousal = () => {
   return (
     <div
       id="carouselExampleIndicators"
-      className="carousel slide container mt-3"
+      className="carousel slide container pt-4 pb-5"
     >
       <div className="carousel-indicators">
         <button

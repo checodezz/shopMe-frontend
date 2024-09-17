@@ -51,7 +51,10 @@ const WishList = () => {
                 </p>
                 <button
                   className="wishlist-toggle-btn"
-                  onClick={() => handleWishlistToggle(product._id)}
+                  onClick={() => {
+                    toggleWishlistOptimistic(product._id);
+                    handleWishlistToggle(product._id);
+                  }}
                 >
                   {product.wishlist
                     ? "Remove from Wishlist"

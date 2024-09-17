@@ -1,100 +1,64 @@
 import { useDispatch } from "react-redux";
 import { deleteAddress } from "../features/address/addressSlice";
+import { Card, Button, Container } from "react-bootstrap";
+import styles from "../css/AddressList.module.css"; // Importing CSS module for custom styling
+
 const AddressList = ({ addresses, onEdit }) => {
   const dispatch = useDispatch();
-  const containerStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "20px",
-  };
-
-  const cardStyle = {
-    width: "800px", // Fixed width for consistency
-    height: "280px", // Fixed height for consistency
-    border: "1px solid #ddd",
-    borderRadius: "5px",
-    padding: "10px",
-    marginBottom: "10px",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-    overflow: "hidden", // Ensure content does not overflow the card
-  };
-
-  const buttonStyle = {
-    padding: "5px 10px",
-    fontSize: "12px",
-    margin: "2px",
-    backgroundColor: "#007aff",
-    borderRadius: "0",
-    color: "light",
-  };
-
-  const deleteButtonStyle = {
-    ...buttonStyle,
-    backgroundColor: "#f44336",
-    color: "#fff",
-    border: "none",
-  };
-
-  const addressDetailStyle = {
-    marginBottom: "5px",
-    overflow: "hidden", // Ensure long text does not overflow
-    textOverflow: "ellipsis", // Add ellipsis if text overflows
-    whiteSpace: "nowrap", // Prevent line breaks
-  };
 
   return (
-    <div style={containerStyle}>
-      <h1 className="display-5 pb-4">Addresses </h1>
-      {addresses.map((address, index) => (
-        <div key={index} style={cardStyle}>
-          <div style={addressDetailStyle}>
-            <strong>Name:</strong> {address.name}
-          </div>
-          <div style={addressDetailStyle}>
-            <strong>Mobile Number:</strong> {address.mobileNumber}
-          </div>
-          <div style={addressDetailStyle}>
-            <strong>Secondary Mobile Number:</strong>{" "}
-            {address.secondaryMobileNumber}
-          </div>
-          <div style={addressDetailStyle}>
-            <strong>State:</strong> {address.state}
-          </div>
-          <div style={addressDetailStyle}>
-            <strong>City:</strong> {address.city}
-          </div>
-          <div style={addressDetailStyle}>
-            <strong>Postal Code:</strong> {address.postalCode}
-          </div>
-          <div style={addressDetailStyle}>
-            <strong>Address:</strong> {address.address}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "10px",
-            }}
-          >
-            <button
-              style={buttonStyle}
-              className="btn "
-              onClick={() => onEdit(address)}
+    <Container className={styles.container}>
+      <h1 className="display-5 text-center pb-4">Addresses</h1>
+      {addresses.map((address) => (
+        <Card className={`${styles.card} mb-4 shadow-sm`} key={address._id}>
+          {/* Card Header for Name */}
+          <Card.Header className={styles.cardHeader}>
+            <h3>{address.name}</h3>
+          </Card.Header>
+
+          <Card.Body>
+            <Card.Text>
+              <strong>Mobile Number:</strong> {address.mobileNumber}
+            </Card.Text>
+            <Card.Text>
+              <strong>Secondary Mobile Number:</strong>{" "}
+              {address.secondaryMobileNumber || "N/A"}
+            </Card.Text>
+            <Card.Text>
+              <strong>State:</strong> {address.state}
+            </Card.Text>
+            <Card.Text>
+              <strong>City:</strong> {address.city}
+            </Card.Text>
+            <Card.Text>
+              <strong>Postal Code:</strong> {address.postalCode}
+            </Card.Text>
+            <Card.Text>
+              <strong>Address:</strong> {address.address}
+            </Card.Text>
+            {/* Buttons for Edit and Delete */}
+            <div
+              className={`d-flex justify-content-between ${styles.buttonGroup}`}
             >
-              Edit
-            </button>
-            <button
-              style={deleteButtonStyle}
-              onClick={() => dispatch(deleteAddress(address._id))}
-            >
-              Delete
-            </button>
-          </div>
-        </div>
+              <Button
+                variant="outline-primary"
+                onClick={() => onEdit(address)}
+                className={styles.button}
+              >
+                Edit
+              </Button>
+              <Button
+                variant="outline-danger"
+                onClick={() => dispatch(deleteAddress(address._id))}
+                className={styles.button}
+              >
+                Delete
+              </Button>
+            </div>
+          </Card.Body>
+        </Card>
       ))}
-    </div>
+    </Container>
   );
 };
 

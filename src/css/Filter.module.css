@@ -1,0 +1,53 @@
+/* Filters.module.css */
+
+.filters {
+    margin-top: 60px;
+    padding: 16px;
+    position: -webkit-sticky;
+    /* For Safari */
+    position: sticky;
+    top: 0;
+    /* Adjust this value if needed */
+    background-color: white;
+    /* Ensure it has a background color to cover content beneath */
+    z-index: 1000;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Ensure it stays on top of other content */
+}
+
+.filtersHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.clearButton {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.filterSection {
+    margin-bottom: 24px;
+}
+
+.filterTitle {
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+.filterItem {
+    margin-bottom: 8px;
+}
+
+.filterItem label {
+    margin-left: 8px;
+}
+
+/* Separator between filter sections */
+.filterSeparator {
+    border-top: 3px solid blue;
+    padding: 5px;
+    margin: 16px 0;
+}

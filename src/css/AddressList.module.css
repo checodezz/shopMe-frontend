@@ -1,0 +1,41 @@
+/* User.module.css */
+.container {
+    max-width: 900px;
+    margin-top: 20px;
+}
+
+.profileCard {
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+}
+
+.imageCol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.profileImage {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 2px solid #dee2e6;
+    /* Light border to define the image */
+}
+
+.profileInfo p {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+.addAddressButton {
+    display: block;
+    margin: 20px auto;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 0.5rem;
+}

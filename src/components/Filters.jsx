@@ -1,3 +1,4 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setCategories,
@@ -5,12 +6,13 @@ import {
   setSort,
   clearFilters,
 } from "../features/products/productSlice";
+// import styles from "../css/Filter.module.css";
+import styles from "../css/Filter.module.css";
 
 const Filters = () => {
   const dispatch = useDispatch();
   const { categories, rating, sort } = useSelector((state) => state.products);
 
-  // Handle category checkbox changes
   const handleCategoryChange = (e) => {
     dispatch(
       setCategories({
@@ -20,35 +22,31 @@ const Filters = () => {
     );
   };
 
-  // Handle rating radio button changes
   const handleRadioInput = (e) => {
     dispatch(setRating(e.target.value));
   };
 
-  // Handle sorting options changes
   const handleSort = (e) => {
     dispatch(setSort(e.target.value));
   };
 
-  // Check if all categories are selected
   const isAllChecked =
     categories.every((cat) => cat.checked) ||
     categories.every((cat) => !cat.checked);
 
   return (
-    <div className="filters mt-5 px-4 ms-1">
-      <div className="d-flex justify-content-between mb-3">
+    <div className={styles.filters}>
+      <div className={styles.filtersHeader}>
         <h3>Filters</h3>
         <span
-          style={{ cursor: "pointer" }}
           onClick={() => dispatch(clearFilters())}
-          className="fw-bold fs-6"
+          className={styles.clearButton}
         >
           Clear
         </span>
       </div>
-      <div>
-        <div className="form-check">
+      <div className={styles.filterSection}>
+        <div className={`${styles.filterItem} form-check`}>
           <input
             type="checkbox"
             id="all"
@@ -66,7 +64,7 @@ const Filters = () => {
           </label>
         </div>
         {categories.map((cat) => (
-          <div className="form-check" key={cat.value}>
+          <div className={`${styles.filterItem} form-check`} key={cat.value}>
             <input
               type="checkbox"
               id={cat.value.toLowerCase()}
@@ -83,10 +81,10 @@ const Filters = () => {
             </label>
           </div>
         ))}
-
-        <h3 className="mt-4">Rating</h3>
+        <div className={styles.filterSeparator}></div>
+        <h3 className={styles.filterTitle}>Rating</h3>
         {[4, 3, 2, 1].map((ratingValue) => (
-          <div className="form-check" key={ratingValue}>
+          <div className={`${styles.filterItem} form-check`} key={ratingValue}>
             <input
               type="radio"
               id={`rating-${ratingValue}`}
@@ -104,9 +102,9 @@ const Filters = () => {
             </label>
           </div>
         ))}
-
-        <h3 className="mt-4">Sort by Price</h3>
-        <div className="form-check">
+        <div className={styles.filterSeparator}></div>
+        <h3 className={styles.filterTitle}>Sort by Price</h3>
+        <div className={`${styles.filterItem} form-check`}>
           <input
             type="radio"
             id="ascending"
@@ -120,7 +118,7 @@ const Filters = () => {
             Low to High
           </label>
         </div>
-        <div className="form-check">
+        <div className={`${styles.filterItem} form-check`}>
           <input
             type="radio"
             id="descending"

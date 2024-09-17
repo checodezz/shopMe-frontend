@@ -2,7 +2,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Container, Form, Button, Card } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import AddressModal from "../components/AddressModal";
 import { fetchAddresses } from "../features/address/addressSlice";
 import { VscDiffAdded } from "react-icons/vsc";
@@ -10,6 +10,7 @@ import { API } from "../utils/images/constants";
 
 const Checkout = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Add this line
   const location = useLocation();
   const addresses = useSelector((state) => state.address.addresses);
   const status = useSelector((state) => state.address.status);
@@ -41,7 +42,6 @@ const Checkout = () => {
         {
           amount,
           currency,
-          // recipt: reciptId,
         },
         {
           headers: {
@@ -50,26 +50,26 @@ const Checkout = () => {
         }
       );
 
-      console.log(response.data);
-
       var options = {
         key: "rzp_test_fusJ47nYJrGOyT", // Enter the Key ID generated from the Dashboard
         amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         currency,
-        name: "Shop.me", //your business name
+        name: "Shop.me", // your business name
         description: "Test Transaction",
         image: "https://example.com/your_logo",
-        order_id: response.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        order_id: response.data.id, // This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         handler: function (response) {
-          alert(response.razorpay_payment_id);
-          alert(response.razorpay_order_id);
-          alert(response.razorpay_signature);
+          // alert(response.razorpay_payment_id);
+          // alert(response.razorpay_order_id);
+          // alert(response.razorpay_signature);
+          // Navigate to success page after payment success
+          navigate("/success");
         },
         prefill: {
-          //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
-          name: selectedAddress.name, //your customer's name
+          // We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+          name: selectedAddress.name, // your customer's name
           email: "gaurav.kumar@example.com",
-          contact: selectedAddress.mobileNumber, //Provide the customer's phone number for better conversion rates
+          contact: selectedAddress.mobileNumber, // Provide the customer's phone number for better conversion rates
         },
         notes: {
           address: "Razorpay Corporate Office",
@@ -78,15 +78,16 @@ const Checkout = () => {
           color: "#3399cc",
         },
       };
+
       var rzp1 = new window.Razorpay(options);
       rzp1.on("payment.failed", function (response) {
-        alert(response.error.code);
-        alert(response.error.description);
-        alert(response.error.source);
-        alert(response.error.step);
-        alert(response.error.reason);
-        alert(response.error.metadata.order_id);
-        alert(response.error.metadata.payment_id);
+        // alert(response.error.code);
+        // alert(response.error.description);
+        // alert(response.error.source);
+        // alert(response.error.step);
+        // alert(response.error.reason);
+        // alert(response.error.metadata.order_id);
+        // alert(response.error.metadata.payment_id);
       });
       rzp1.open();
       e.preventDefault();
@@ -94,10 +95,10 @@ const Checkout = () => {
       console.error("Error making the request:", error);
     }
   };
+
   useEffect(() => {
     const query = new URLSearchParams(location.search);
     const total = query.get("total");
-    console.log(total);
     if (total) {
       setTotalPrice(parseFloat(total));
     }
