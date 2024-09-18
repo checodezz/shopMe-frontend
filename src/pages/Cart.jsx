@@ -18,7 +18,7 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(fetchCart());
-  }, [dispatch]);
+  }, [dispatch, cartItems]);
 
   const handleQuantityChange = (productId, operation) => {
     dispatch(updateQuantity({ productId: productId._id, operation }));
@@ -40,7 +40,7 @@ const Cart = () => {
 
   return (
     <div className="container mt-3" style={{ fontSize: "0.9rem" }}>
-      <h2 className="text-center mb-4">Your Cart</h2>
+      <h1 className="text-center mb-4">Your Cart</h1>
       {cartItems.length === 0 ? (
         <div
           className="d-flex justify-content-center align-items-center"

@@ -7,6 +7,7 @@ import AddressModal from "../components/AddressModal";
 import { fetchAddresses } from "../features/address/addressSlice";
 import { VscDiffAdded } from "react-icons/vsc";
 import { API } from "../utils/images/constants";
+import { toast } from "react-toastify";
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ const Checkout = () => {
           // alert(response.razorpay_order_id);
           // alert(response.razorpay_signature);
           // Navigate to success page after payment success
+          toast.success("Transaction Successful");
           navigate("/success");
         },
         prefill: {
@@ -88,6 +90,7 @@ const Checkout = () => {
         // alert(response.error.reason);
         // alert(response.error.metadata.order_id);
         // alert(response.error.metadata.payment_id);
+        toast.error("Transaction Failed");
       });
       rzp1.open();
       e.preventDefault();
@@ -119,10 +122,10 @@ const Checkout = () => {
 
   return (
     <Container className="mt-2">
-      <h2 className="text-center mb-5">Checkout</h2>
+      <h1 className="text-center mb-5 pt-3">Checkout</h1>
       <Form>
         <div
-          className="text-center mb-3"
+          className="text-center text-primary"
           onClick={handleAddNewAddress}
           style={{ cursor: "pointer" }}
         >
@@ -132,7 +135,7 @@ const Checkout = () => {
         {addresses.map((address) => (
           <Card
             key={address._id}
-            className={`shadow mb-3 ${
+            className={`shadow mb-3 custom-card-width ${
               selectedAddress === address._id ? "border-primary" : ""
             }`}
           >
