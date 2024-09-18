@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { CiSquarePlus, CiSquareMinus } from "react-icons/ci";
 import { AiFillDelete } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const Cart = () => {
   const handleDeleteProduct = (productId) => {
     dispatch(deleteProduct(productId));
     dispatch(deleteProductFromCart(productId));
+    toast.error("Item removed from cart");
   };
 
   const totalPrice = cartItems
