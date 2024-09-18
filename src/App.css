@@ -1,0 +1,5 @@
+.custom-card-width {
+    max-width: 500px;
+    /* Adjust this as needed */
+    margin: 0 auto;
+}

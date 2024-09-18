@@ -6,6 +6,7 @@ import { toggleWishlist } from "../features/wishlist/wishlistSlice";
 import { updatedCart, fetchCart } from "../features/cart/cartSlice";
 import { FaHeart } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 import styles from "../css/ProductDetails.module.css";
 
@@ -13,7 +14,6 @@ const ProductDetails = () => {
   const [addedToWishlist, setAddedToWishlist] = useState(false);
   const [inCart, setInCart] = useState(false);
   const [showGoToCart, setShowGoToCart] = useState(false);
-
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,9 +47,16 @@ const ProductDetails = () => {
   };
 
   const handleAddtoCart = () => {
-    dispatch(updatedCart({ id, operation: "increment" }));
-    setInCart(true);
-    setShowGoToCart(true); // Show "Go to Cart" button
+    if (inCart) {
+      // If the product is already in the cart, navigate to the cart
+      navigate("/cart");
+    } else {
+      // If the product is not in the cart, add it to the cart and show "Go to Cart" button
+      dispatch(updatedCart({ id, operation: "increment" }));
+      toast.success("Item added to Cart");
+      setInCart(true);
+      setShowGoToCart(true); // Show "Go to Cart" button
+    }
   };
 
   const handleGoToCart = () => {

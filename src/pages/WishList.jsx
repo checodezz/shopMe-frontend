@@ -34,7 +34,7 @@ const WishList = () => {
 
   return (
     <div className="wishlist-page">
-      <h1 className="wishlist-title">Wishlist</h1>
+      <h1 className="wishlist-title pt-3">Wishlist</h1>
       <div className="wishlist-container">
         {wishlistProducts.length > 0 ? (
           wishlistProducts.map((product) => (

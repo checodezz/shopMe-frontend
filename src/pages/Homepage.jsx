@@ -12,12 +12,15 @@ import {
 } from "../utils/images/images";
 import Carousal from "../components/Carousal";
 import { useEffect } from "react";
-import { fetchCart } from "../features/cart/cartSlice";
+import { clearCart, fetchCart } from "../features/cart/cartSlice";
+import { clearOrders } from "../features/orders/orderSlice";
 
 const Homepage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(clearCart());
+    dispatch(clearOrders());
     dispatch(fetchProducts());
     dispatch(fetchCart());
   }, [dispatch]);

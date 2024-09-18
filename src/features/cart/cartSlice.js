@@ -54,11 +54,14 @@ export const cartSlice = createSlice({
         },
         deleteProduct: (state, action) => {
             const productId = action.payload;
-            console.log(productId)
+            console.log(productId);
             state.products = state.products.filter(
-                (product) => product._id !== productId
+                (product) => product.productId._id !== productId
             );
         },
+        clearCart: (state) => {
+            state.products = [];
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -94,8 +97,12 @@ export const cartSlice = createSlice({
             .addCase(deleteProductFromCart.pending, (state) => {
                 state.status = "pending";
             })
-            .addCase(deleteProductFromCart.fulfilled, (state) => {
+            .addCase(deleteProductFromCart.fulfilled, (state, action) => {
                 state.status = "success";
+                const productId = action.payload;
+                state.products = state.products.filter(
+                    (product) => product.productId._id !== productId
+                );
             })
             .addCase(deleteProductFromCart.rejected, (state, action) => {
                 state.status = "error";
@@ -104,5 +111,5 @@ export const cartSlice = createSlice({
     },
 });
 
-export const { updateQuantity, deleteProduct } = cartSlice.actions;
+export const { updateQuantity, deleteProduct, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
