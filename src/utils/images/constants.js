@@ -29,4 +29,4 @@ export const states = [
     "West Bengal",
 ];
 
-export const API = "http://localhost:3000" || "https://shopme-backend-two.vercel.app"   
+export const API = "https://shopme-backend-two.vercel.app"   
